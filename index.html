@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dr. Atul Jakhar</title>
+    <style>
+        body {
+            font-family: Arial, serif ;
+            margin: 0;
+            padding: 0;
+            background-color: white;
+            color: black;
+        }
+        header {
+            font-family: 'Georgia', serif;
+            background-color: white;
+            color: black;
+            text-align: center;
+            padding: 20px;
+            font-size: 32px;
+            font-weight: bold;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+            border-bottom: 1px solid black;
+        }
+        nav {
+            display: flex;
+            justify-content: center;
+            background: white;
+            padding: 10px;
+            position: sticky;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            border-top: 1px solid black;
+            border-bottom: 2px solid black;
+        }
+        nav a {
+            margin: 0;
+            text-decoration: none;
+            color: black;
+            font-weight: bold;
+            padding: 10px 20px;
+            border-right: 2px solid black;
+            background: white;
+        }
+        nav a:first-child {
+            border-left: 2px solid black;
+        }
+        nav a:hover {
+            background: black;
+            color: white;
+        }
+        .container {
+            width: 80%;
+            margin: auto;
+            padding: 20px;
+            background: white;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        }
+        .scroll-btn {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: black;
+            color: white;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 24px;
+            cursor: pointer;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+        }
+    </style>
+    <script>
+        function toggleScrollButton() {
+            let button = document.getElementById('scroll-btn');
+            if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 10) {
+                button.innerHTML = '⬆';
+                button.onclick = () => window.scrollTo({ top: 0, behavior: 'smooth' });
+            } else {
+                button.innerHTML = '⬇';
+                button.onclick = () => window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+            }
+        }
+        window.addEventListener('scroll', toggleScrollButton);
+    </script>
+</head>
+<body>
+    <header>
+        ✨ Dr. Atul Jakhar ✨
+    </header>
+    <nav>
+        <a href="#about">About Me</a>
+        <a href="#research">Research</a>
+        <a href="#education">Education</a>
+        <a href="#teaching">Teaching</a>
+        <a href="#contact">Contact</a>
+    </nav>
+    <div class="container">
+        <section id="about">
+            <h2>👋🏻 About Me</h2>
+            <hr>
+            <p>Dr. Atul Jakhar is an Assistant Professor at Dayananda Sagar University, Bangalore. He holds an Integrated M.Sc. in Mathematics and a Ph.D., specializing in the study of instability in Newtonian fluids. Dr. Jakhar is a dedicated researcher focused on complex fluid dynamics problems.</p>
+        </section>
+        <section id="research">
+            <h2>🔬 Research</h2>
+            <hr>
+            <p></p>
+        </section>
+        <section id="education">
+            <h2>🎓 Education</h2>
+            <hr>
+            <p>Integrated M.Sc. in Mathematics and Ph.D. in fluid dynamics.</p>
+        </section>
+        <section id="teaching">
+            <h2> 📚 Teaching</h2>
+            <hr>
+            <p>Over four and a half years of experience as a teaching assistant.</p>
+        </section>
+        <section id="contact">
+            <h2>📬 Contact</h2>
+            <hr>
+            
+        </section>
+    </div>
+    <footer>
+        <hr>
+        <a text-align: center> &copy; 2025 Dr. Atul Jakhar | All Rights Reserved</a>
+    <hr>
+    </footer>
+    <div id="scroll-btn" class="scroll-btn">⬇</div>
+</body>
+</html>
