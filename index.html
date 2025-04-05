@@ -1,140 +1,170 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dr. Atul Jakhar</title>
-    <style>
-        body {
-            font-family: Arial, serif ;
-            margin: 0;
-            padding: 0;
-            background-color: white;
-            color: black;
-        }
-        header {
-            font-family: 'Georgia', serif;
-            background-color: white;
-            color: black;
-            text-align: center;
-            padding: 20px;
-            font-size: 32px;
-            font-weight: bold;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
-            border-bottom: 1px solid black;
-        }
-        nav {
-            display: flex;
-            justify-content: center;
-            background: white;
-            padding: 10px;
-            position: sticky;
-            top: 0;
-            width: 100%;
-            z-index: 1000;
-            border-top: 1px solid black;
-            border-bottom: 2px solid black;
-        }
-        nav a {
-            margin: 0;
-            text-decoration: none;
-            color: black;
-            font-weight: bold;
-            padding: 10px 20px;
-            border-right: 2px solid black;
-            background: white;
-        }
-        nav a:first-child {
-            border-left: 2px solid black;
-        }
-        nav a:hover {
-            background: black;
-            color: white;
-        }
-        .container {
-            width: 80%;
-            margin: auto;
-            padding: 20px;
-            background: white;
-            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-        }
-        .scroll-btn {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            background: black;
-            color: white;
-            border-radius: 50%;
-            width: 50px;
-            height: 50px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 24px;
-            cursor: pointer;
-            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
-        }
-    </style>
-    <script>
-        function toggleScrollButton() {
-            let button = document.getElementById('scroll-btn');
-            if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 10) {
-                button.innerHTML = '⬆';
-                button.onclick = () => window.scrollTo({ top: 0, behavior: 'smooth' });
-            } else {
-                button.innerHTML = '⬇';
-                button.onclick = () => window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
-            }
-        }
-        window.addEventListener('scroll', toggleScrollButton);
-    </script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dr. Atul Jakhar 👨‍🏫</title>
+  <style>
+    :root {
+      --primary-color: #333;
+      --secondary-color: #fff;
+      --accent-color: #0ff;
+      --text-color: #333;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      line-height: 1.6;
+      margin: 0;
+      padding: 0;
+      background: #f4f4f4;
+      color: var(--text-color);
+    }
+
+    header {
+      background: var(--primary-color);
+      color: var(--secondary-color);
+      padding: 20px;
+      text-align: center;
+    }
+
+    header a {
+      color: var(--accent-color);
+      text-decoration: none;
+    }
+
+    .container {
+      padding: 20px;
+      max-width: 1000px;
+      margin: auto;
+      background: var(--secondary-color);
+    }
+
+    h1, h2 {
+      color: var(--text-color);
+    }
+
+    ul {
+      padding-left: 20px;
+    }
+
+    .section {
+      margin-bottom: 40px;
+    }
+
+    @media (max-width: 768px) {
+      body {
+        font-size: 16px;
+      }
+
+      header h1 {
+        font-size: 1.8em;
+      }
+
+      .container {
+        padding: 15px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      header h1 {
+        font-size: 1.5em;
+      }
+
+      .container {
+        padding: 10px;
+      }
+
+      .section {
+        margin-bottom: 25px;
+      }
+    }
+  </style>
 </head>
 <body>
-    <header>
-        Dr. Atul Jakhar
-    </header>
-    <nav>
-        <a href="#about">About Me</a>
-        <a href="#research">Research</a>
-        <a href="#education">Education</a>
-        <a href="#teaching">Teaching</a>
-        <a href="#contact">Contact</a>
-    </nav>
-    <div class="container">
-        <section id="about">
-            <h2>👋🏻 About Me</h2>
-            <hr>
-            <p>Dr. Atul Jakhar is an Assistant Professor at Dayananda Sagar University, Bangalore. He holds an Integrated M.Sc. in Mathematics and a Ph.D., specializing in the study of instability in Newtonian fluids. Dr. Jakhar is a dedicated researcher focused on complex fluid dynamics problems.
-            <br> Section Under construction...</p>
-        </section>
-        <section id="research">
-            <h2>🔬 Research</h2>
-            <hr>
-            <p>Under construction... </p>
-        </section>
-        <section id="education">
-            <h2>🎓 Education</h2>
-            <hr>
-            <p>Integrated M.Sc. in Mathematics and Ph.D. in fluid dynamics.</p>
-        </section>
-        <section id="teaching">
-            <h2> 📚 Teaching</h2>
-            <hr>
-            <p>Over four and a half years of experience as a teaching assistant.</p>
-        </section>
-        <section id="contact">
-            <h2>📬 Contact</h2>
-            <hr>
-            <p>Under construction...</p>
-        </section>
+  <header>
+    <h1>Dr. Atul Jakhar 👨‍🏫</h1>
+    <p>Assistant Professor | Mathematician | Researcher 🔬</p>
+    <p>Email: dratuljakhar@gmail.com 📧 | Phone: +91-9145851458 📱</p>
+    <p>Website: <a href="https://www.atuljakhar.github.io">atuljakhar.github.io</a></p>
+  </header>
+  <div class="container">
+    <div class="section">
+      <h2>🎯 Research Interests</h2>
+      <p>Linear/Nonlinear instability analysis, Heat and mass transfer, Dynamical system, Computational Fluid Dynamics.</p>
     </div>
-    <footer>
-        <hr>
-        <a text-align: center> &copy; 2025 Dr. Atul Jakhar | All Rights Reserved</a>
-    <hr>
-    </footer>
-    <div id="scroll-btn" class="scroll-btn">⬇</div>
+
+    <div class="section">
+      <h2>🎓 Education</h2>
+      <ul>
+        <li>Ph.D. in Mathematics, Central University of Rajasthan 🧪 (2019–2024)</li>
+        <li>Integrated M.Sc. in Mathematics, CURAJ 📘 (Completed in 2018)</li>
+        <li>Senior Secondary: Tagore Children Academy 🏫 (2012-13)</li>
+      </ul>
+    </div>
+
+    <div class="section">
+      <h2>📚 Teaching Experience</h2>
+      <p>Assistant Professor at Dayananda Sagar University, Bengaluru 📍</p>
+      <ul>
+        <li>Teaching Assistant roles in multiple mathematics courses at CURAJ (2020–2023)</li>
+      </ul>
+    </div>
+
+    <div class="section">
+      <h2>📝 Publications</h2>
+      <ul>
+        <li>Physics of Fluids, Heat Transfer, Nonlinear Engineering, EPJ Plus, etc. 📖</li>
+        <li>Topics: Magnetoconvection, Triple Diffusive Convection, Williamson Fluid Flow</li>
+      </ul>
+    </div>
+
+    <div class="section">
+      <h2>🏆 Achievements</h2>
+      <ul>
+        <li>UGC Fellowship, CSIR-NET Qualified, IISER & BITS Pilani Fellowships</li>
+        <li>Summer/Winter Research Fellowships, Academic Representative Roles 🎖️</li>
+      </ul>
+    </div>
+
+    <div class="section">
+      <h2>🎤 Talks & Presentations</h2>
+      <ul>
+        <li>RMS Conference 2020</li>
+        <li>CDSA Conference 2020</li>
+      </ul>
+    </div>
+
+    <div class="section">
+      <h2>📅 Workshops & Conferences Attended</h2>
+      <ul>
+        <li>Virtual HLF, IWCMDA, AESIM, IIT Bhilai, SPIM, LNMIIT, etc.</li>
+      </ul>
+    </div>
+
+    <div class="section">
+      <h2>📂 Projects & Internships</h2>
+      <ul>
+        <li>Heat and Mass Transfer, Fractional Differential Equations, B-splines, Group Theory 🔍</li>
+      </ul>
+    </div>
+
+    <div class="section">
+      <h2>💻 Technical Skills</h2>
+      <p>Scilab, Matlab, Mathematica, C/C++, Python, LaTeX, HTML, Windows, Linux, macOS 💡</p>
+    </div>
+
+    <div class="section">
+      <h2>🏐 Sports & Extracurricular</h2>
+      <ul>
+        <li>Gold Medals 🥇 in Volleyball & Cricket at CURAJ</li>
+        <li>West Zone Championships, 11 KM Marathon 🏃‍♂️</li>
+      </ul>
+    </div>
+  </div>
 </body>
 </html>
