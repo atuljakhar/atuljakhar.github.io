@@ -12,7 +12,7 @@
       --glass-border: rgba(255, 255, 255, 0.4);
       --accent: #6c63ff;
       --text: #222;
-      --shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+      --shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.13);
       --name-gradient: linear-gradient(90deg, #6c63ff 0%, #48c6ef 100%);
     }
     * {
@@ -22,13 +22,24 @@
     }
     body {
       min-height: 100vh;
-      background: linear-gradient(135deg, #c3cfe2 0%, #e2eafc 100%);
+      background: #fff;
       font-family: 'Montserrat', sans-serif;
       color: var(--text);
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
+      position: relative;
+      overflow-x: hidden;
+    }
+    .flash-effect {
+      position: fixed;
+      left: 0; top: 0; width: 100vw; height: 100vh;
+      pointer-events: none;
+      z-index: 9999;
+      background: none;
+      transition: background 0.4s cubic-bezier(.4,0,.2,1);
+      will-change: background;
     }
     .container {
       width: 90vw;
@@ -177,13 +188,14 @@
   </style>
 </head>
 <body>
+  <div class="flash-effect" id="flash-effect"></div>
   <div class="container">
     <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Atul Jakhar" class="avatar">
     <div class="name">Atul Jakhar, Ph.D.</div>
     <div class="title">Assistant Professor</div>
     <div class="university">Dayananda Sagar University, Bengaluru, India</div>
     <div class="about">
-      I am an Assistant Professor at Dayananda Sagar University, specialising in linear/nonlinear instability, heat and mass transfer, dynamical systems, and computational fluid dynamics. I hold an Integrated M.Sc. in Mathematics and a Ph.D. from the Central University of Rajasthan, where my doctoral research focused on the stability analysis of Newtonian fluids.<br><br>
+      I am an Assistant Professor at Dayananda Sagar University, specializing in linear/nonlinear instability, heat and mass transfer, dynamical systems, and computational fluid dynamics. I hold an Integrated M.Sc. in Mathematics and a Ph.D. from the Central University of Rajasthan, where my doctoral research focused on the stability analysis of Newtonian fluids.<br><br>
       With a strong research background, I have published 13 research articles in Q1/Q2 SCI journals as of March 2025. My work extensively covers nonlinear instability analysis and bio-convection phenomena, particularly in Newtonian fluids.<br><br>
       Beyond academia, I am passionate about teaching, mentoring young minds, and fostering curiosity-driven research. I also enjoy maintaining an active lifestyle as a dedicated athlete.
     </div>
@@ -227,5 +239,23 @@
       </div>
     </div>
   </div>
+  <script>
+    const flash = document.getElementById('flash-effect');
+    let flashTimeout;
+
+    document.addEventListener('mousemove', function(e) {
+      const x = e.clientX;
+      const y = e.clientY;
+      // Create a radial gradient at the cursor position
+      flash.style.background = `radial-gradient(circle at ${x}px ${y}px, rgba(108,99,255,0.18) 0px, rgba(108,99,255,0.10) 60px, rgba(108,99,255,0.05) 120px, transparent 200px)`;
+      flash.style.transition = 'background 0s';
+
+      clearTimeout(flashTimeout);
+      flashTimeout = setTimeout(() => {
+        flash.style.transition = 'background 0.5s cubic-bezier(.4,0,.2,1)';
+        flash.style.background = 'none';
+      }, 60);
+    });
+  </script>
 </body>
 </html>
