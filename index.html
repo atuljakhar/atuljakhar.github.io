@@ -4,276 +4,528 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Atul Jakhar, Ph.D. | Portfolio</title>
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Pacifico&display=swap" rel="stylesheet">
+  <title>Atul Jakhar | Personal Webpage</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
   <style>
-    :root {
-      --glass-bg: rgba(255, 255, 255, 0.35);
-      --glass-border: rgba(255, 255, 255, 0.7);
-      --glass-inner: rgba(255,255,255,0.18);
-      --accent: #6c63ff;
-      --text: #222;
-      --shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.13);
-      --name-gradient: linear-gradient(90deg, #6c63ff 0%, #48c6ef 100%);
-    }
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
     body {
       min-height: 100vh;
-      background: #fff;
-      font-family: 'Montserrat', sans-serif;
-      color: var(--text);
+      margin: 0;
+      font-family: 'Inter', Arial, sans-serif;
+      background: linear-gradient(135deg, #b3c6e6 0%, #e6e9f0 100%);
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: center;
+      justify-content: flex-start;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    .liquid-glass {
       position: relative;
-      overflow-x: hidden;
-    }
-    .flash-effect {
-      position: fixed;
-      left: 0; top: 0; width: 100vw; height: 100vh;
-      pointer-events: none;
-      z-index: 9999;
-      background: none;
-      transition: background 0.4s cubic-bezier(.4,0,.2,1);
-      will-change: background;
-    }
-    .container {
-      width: 90vw;
-      max-width: 900px;
-      margin: 40px auto;
-      padding: 40px 30px;
-      border-radius: 24px;
-      background: var(--glass-bg);
-      box-shadow: var(--shadow);
-      border: 1.5px solid var(--glass-border);
-      backdrop-filter: blur(16px) saturate(180%);
-      -webkit-backdrop-filter: blur(16px) saturate(180%);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 32px;
-    }
-    .avatar {
-      width: 120px;
-      height: 120px;
-      border-radius: 50%;
-      object-fit: cover;
-      border: 3px solid var(--accent);
-      box-shadow: 0 4px 16px rgba(108, 99, 255, 0.15);
-    }
-    .name {
-      font-family: 'Pacifico', cursive;
-      font-size: 2.7rem;
-      font-weight: 700;
-      letter-spacing: 1.5px;
-      background: var(--name-gradient);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      text-fill-color: transparent;
-      margin-bottom: 8px;
-      text-shadow: 0 2px 8px rgba(108, 99, 255, 0.10);
-      text-align: center;
-    }
-    .title {
-      font-size: 1.3rem;
-      font-weight: 600;
-      color: #444;
-      margin-bottom: 8px;
-      text-align: center;
-    }
-    .university {
-      font-size: 1.1rem;
-      color: #555;
-      margin-bottom: 16px;
-      text-align: center;
-    }
-    .about {
-      text-align: center;
-      font-size: 1.1rem;
-      line-height: 1.6;
-      color: #333;
-      margin-bottom: 16px;
-    }
-    .research {
-      background: rgba(108, 99, 255, 0.07);
-      border-left: 4px solid var(--accent);
-      padding: 14px 18px;
-      border-radius: 10px;
-      font-size: 1.05rem;
-      color: #333;
-      margin-bottom: 16px;
-      width: 100%;
-      max-width: 700px;
-      text-align: left;
-    }
-    .links {
-      display: flex;
-      gap: 18px;
-      margin-bottom: 8px;
-      flex-wrap: wrap;
-      justify-content: center;
-    }
-    .links a {
-      text-decoration: none;
-      color: var(--accent);
-      font-weight: 600;
-      background: rgba(108, 99, 255, 0.08);
-      padding: 8px 18px;
-      border-radius: 20px;
-      transition: background 0.2s, color 0.2s;
-      border: 1px solid transparent;
-    }
-    .links a:hover {
-      background: var(--accent);
-      color: #fff;
-      border: 1px solid #fff;
-    }
-    .projects {
-      width: 100%;
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 24px;
-      margin-top: 16px;
-    }
-    .project-card {
-      position: relative;
-      background: var(--glass-bg);
-      border: 1.5px solid var(--glass-border);
-      border-radius: 18px;
-      box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.18), 0 1.5px 0 0 var(--glass-inner) inset;
-      padding: 24px 18px;
+      margin-top: 60px;
+      width: 95vw;
+      max-width: 420px;
+      padding: 2.5rem 2rem 2rem 2rem;
+      border-radius: 2.5rem;
+      background: rgba(255, 255, 255, 0.18);
+      border: 1.5px solid rgba(255,255,255,0.45);
+      box-shadow:
+        0 8px 32px 0 rgba(31, 38, 135, 0.18),
+        0 1.5px 8px 0 rgba(31, 38, 135, 0.10) inset;
       backdrop-filter: blur(18px) saturate(180%);
       -webkit-backdrop-filter: blur(18px) saturate(180%);
       overflow: hidden;
-      transition: transform 0.15s, box-shadow 0.15s;
-    }
-    .project-card::before {
-      content: "";
-      position: absolute;
-      left: 0; top: 0;
-      width: 100%; height: 60%;
-      border-radius: 18px 18px 60px 60px/18px 18px 60px 60px;
-      background: linear-gradient(120deg, rgba(255,255,255,0.55) 0%, rgba(255,255,255,0.15) 100%);
-      opacity: 0.7;
-      pointer-events: none;
+      isolation: isolate;
       z-index: 1;
-      filter: blur(1px);
+      transition: box-shadow 0.3s;
     }
-    .project-card:hover {
-      transform: translateY(-4px) scale(1.03);
-      box-shadow: 0 12px 40px rgba(108, 99, 255, 0.18), 0 1.5px 0 0 var(--glass-inner) inset;
+    .liquid-glass:hover {
+      box-shadow:
+        0 12px 40px 0 rgba(31, 38, 135, 0.22),
+        0 2px 12px 0 rgba(31, 38, 135, 0.13) inset;
     }
-    .project-title {
-      font-size: 1.15rem;
-      font-weight: 600;
-      color: var(--accent);
-      margin-bottom: 8px;
-      position: relative;
-      z-index: 2;
+    .liquid-glass::before,
+    .liquid-glass::after {
+      content: '';
+      position: absolute;
+      border-radius: inherit;
+      pointer-events: none;
+      z-index: 0;
     }
-    .project-desc {
-      font-size: 1rem;
-      color: #333;
-      margin-bottom: 10px;
-      position: relative;
-      z-index: 2;
+    .liquid-glass::before {
+      inset: 0;
+      background: linear-gradient(120deg, rgba(255,255,255,0.25) 0%, rgba(255,255,255,0.10) 100%);
+      box-shadow: 0 0 40px 10px rgba(255,255,255,0.10) inset;
+      opacity: 0.7;
+      filter: blur(2px);
     }
-    .project-link {
-      font-size: 0.98rem;
-      color: var(--accent);
-      text-decoration: underline;
-      transition: color 0.2s;
-      position: relative;
-      z-index: 2;
+    .liquid-glass::after {
+      top: 10px; left: 10px; right: 10px; bottom: 10px;
+      background: radial-gradient(circle at 30% 20%, rgba(255,255,255,0.25) 0%, rgba(255,255,255,0.05) 80%);
+      opacity: 0.7;
+      filter: blur(1.5px);
     }
-    .project-link:hover {
+    .liquid-glass {
+      filter: url(#liquid-distort);
+    }
+    .profile-img {
+      display: block;
+      margin: 0 auto 1.2rem auto;
+      width: 110px;
+      height: 110px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2.5px solid rgba(255,255,255,0.7);
+      box-shadow: 0 2px 12px 0 rgba(31, 38, 135, 0.10);
+      background: #e6e9f0;
+    }
+    .name {
+      text-align: center;
+      font-size: 2rem;
+      font-weight: 700;
+      color: #1a237e;
+      margin-bottom: 0.2rem;
+      letter-spacing: 0.01em;
+      text-shadow: 0 1px 8px rgba(255,255,255,0.18);
+    }
+    .title {
+      text-align: center;
+      font-size: 1.1rem;
+      color: #3a3a3a;
+      margin-bottom: 1.2rem;
+      font-weight: 500;
+      opacity: 0.85;
+    }
+    .about {
+      font-size: 1.05rem;
       color: #222;
+      text-align: center;
+      margin-bottom: 1.5rem;
+      line-height: 1.7;
+      opacity: 0.92;
+      text-shadow: 0 1px 8px rgba(255,255,255,0.10);
+    }
+    .info-list-wrapper {
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+      gap: 1.2rem;
+      margin-bottom: 1.5rem;
+      position: relative;
+    }
+    .info-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      font-size: 1rem;
+      color: #222;
+      opacity: 0.92;
+      z-index: 1;
+    }
+    .info-list li {
+      display: flex;
+      align-items: center;
+      gap: 0.5em;
+      justify-content: flex-start;
+    }
+    .info-list li svg {
+      width: 1.1em;
+      height: 1.1em;
+      opacity: 0.7;
+    }
+    /* Sticky Note */
+    .sticky-note {
+      position: relative;
+      min-width: 90px;
+      max-width: 120px;
+      min-height: 90px;
+      padding: 0.7em 1em 0.7em 1em;
+      background: #fffbe7;
+      color: #7a5d00;
+      font-family: 'Inter', Arial, sans-serif;
+      font-size: 1.05rem;
+      font-weight: 700;
+      border-radius: 0.7em 1.2em 0.7em 0.7em;
+      box-shadow: 2px 4px 18px 0 rgba(31, 38, 135, 0.10), 0 1px 0 #e6e9f0;
+      border: 1.5px solid #f7e6a2;
+      cursor: pointer;
+      transition: transform 0.18s cubic-bezier(.4,0,.2,1), box-shadow 0.18s cubic-bezier(.4,0,.2,1);
+      z-index: 2;
+      margin-top: 0.2em;
+      margin-left: 0.2em;
+      user-select: none;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: flex-start;
+      overflow: hidden;
+      outline: none;
+    }
+    .sticky-note:hover, .sticky-note:focus {
+      transform: scale(1.04) rotate(-2deg);
+      box-shadow: 4px 8px 24px 0 rgba(31, 38, 135, 0.13), 0 2px 0 #e6e9f0;
+      outline: 2px solid #ffe066;
+    }
+    .sticky-title {
+      font-size: 1.1em;
+      font-weight: 700;
+      margin-bottom: 0.2em;
+      color: #bfa100;
+      letter-spacing: 0.01em;
+    }
+    .sticky-content {
+      font-size: 0.98em;
+      font-weight: 500;
+      color: #7a5d00;
+      opacity: 0.95;
+      line-height: 1.3;
+      margin-bottom: 0.1em;
+    }
+    .sticky-date {
+      font-size: 0.85em;
+      color: #bfa100;
+      opacity: 0.7;
+      margin-top: 0.2em;
+      font-weight: 400;
+    }
+    .sections {
+      display: flex;
+      justify-content: center;
+      gap: 1.2rem;
+      margin: 2rem 0 0 0;
+    }
+    .section-btn {
+      padding: 0.8rem 1.6rem;
+      border: none;
+      border-radius: 1.5rem;
+      background: rgba(255,255,255,0.22);
+      color: #1a237e;
+      font-size: 1.1rem;
+      font-weight: 600;
+      cursor: pointer;
+      box-shadow: 0 1px 6px 0 rgba(31, 38, 135, 0.10);
+      transition: background 0.2s, color 0.2s, box-shadow 0.2s;
+      backdrop-filter: blur(4px);
+      -webkit-backdrop-filter: blur(4px);
+      outline: none;
+    }
+    .section-btn:hover, .section-btn:focus {
+      background: rgba(26,35,126,0.12);
+      color: #3949ab;
+      box-shadow: 0 2px 12px 0 rgba(31, 38, 135, 0.13);
+    }
+    /* Modal styles */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 100;
+      left: 0; top: 0;
+      width: 100vw; height: 100vh;
+      background: rgba(30, 34, 90, 0.18);
+      backdrop-filter: blur(2px);
+      -webkit-backdrop-filter: blur(2px);
+      align-items: center;
+      justify-content: center;
+      transition: background 0.2s;
+    }
+    .modal.active {
+      display: flex;
+    }
+    .modal-content,
+    .sticky-modal-content {
+      position: relative;
+      background: rgba(255,255,255,0.22);
+      border-radius: 2rem;
+      box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.18);
+      border: 1.5px solid rgba(255,255,255,0.45);
+      padding: 2rem 1.5rem 1.5rem 1.5rem;
+      max-width: 95vw;
+      width: 400px;
+      color: #1a237e;
+      text-align: left;
+      backdrop-filter: blur(18px) saturate(180%);
+      -webkit-backdrop-filter: blur(18px) saturate(180%);
+      z-index: 101;
+      opacity: 0;
+      transform: scale(0.92) translateY(40px);
+      animation: none;
+      transition: opacity 0.35s cubic-bezier(.4,0,.2,1), transform 0.35s cubic-bezier(.4,0,.2,1);
+    }
+    .modal.active .modal-content,
+    .modal.active .sticky-modal-content {
+      opacity: 1;
+      transform: scale(1) translateY(0);
+      animation: popupFluid 0.38s cubic-bezier(.4,0,.2,1);
+    }
+    @keyframes popupFluid {
+      0% {
+        opacity: 0;
+        transform: scale(0.92) translateY(40px);
+      }
+      60% {
+        opacity: 1;
+        transform: scale(1.04) translateY(-8px);
+      }
+      100% {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+      }
+    }
+    .modal-title {
+      font-size: 1.4rem;
+      font-weight: 700;
+      margin-bottom: 0.7rem;
+      color: #1a237e;
+      letter-spacing: 0.01em;
+    }
+    .modal-close {
+      position: absolute;
+      top: 1.1rem;
+      right: 1.1rem;
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      color: #1a237e;
+      cursor: pointer;
+      opacity: 0.7;
+      transition: opacity 0.2s;
+      z-index: 102;
+    }
+    .modal-close:hover, .modal-close:focus {
+      opacity: 1;
+      color: #3949ab;
+    }
+    .modal-body {
+      font-size: 1.05rem;
+      color: #222;
+      line-height: 1.7;
+      margin-top: 0.5rem;
+      opacity: 0.95;
+    }
+    /* Sticky Note Modal */
+    .sticky-modal-content {
+      background: #fffbe7;
+      color: #7a5d00;
+      border-radius: 1.5em;
+      border: 2px solid #ffe066;
+      box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.13);
+      padding: 2.2em 1.5em 1.5em 1.5em;
+      max-width: 95vw;
+      width: 370px;
+      font-family: 'Inter', Arial, sans-serif;
+      position: relative;
+    }
+    .sticky-modal-title {
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: #bfa100;
+      margin-bottom: 0.7em;
+      letter-spacing: 0.01em;
+    }
+    .sticky-modal-date {
+      font-size: 0.95em;
+      color: #bfa100;
+      opacity: 0.7;
+      margin-bottom: 0.7em;
+      font-weight: 400;
+    }
+    .sticky-modal-body {
+      font-size: 1.05rem;
+      color: #7a5d00;
+      line-height: 1.7;
+      opacity: 0.98;
+    }
+    footer {
+      margin-top: 40px;
+      text-align: center;
+      color: #222;
+      font-size: 1rem;
+      opacity: 0.7;
+      letter-spacing: 0.01em;
+      text-shadow: 0 1px 8px rgba(255,255,255,0.10);
     }
     @media (max-width: 600px) {
-      .container {
-        padding: 24px 8px;
+      .liquid-glass {
+        padding: 1.5rem 0.7rem 1.2rem 0.7rem;
+        max-width: 98vw;
+      }
+      .about {
+        font-size: 0.98rem;
       }
       .name {
-        font-size: 2rem;
+        font-size: 1.4rem;
       }
-      .projects {
-        grid-template-columns: 1fr;
+      .modal-content, .sticky-modal-content {
+        width: 95vw;
+        padding: 1.2rem 0.7rem 1rem 0.7rem;
       }
     }
   </style>
+  <svg width="0" height="0" style="position:absolute;">
+    <filter id="liquid-distort">
+      <feTurbulence type="fractalNoise" baseFrequency="0.012 0.018" numOctaves="2" seed="7" result="turb"/>
+      <feDisplacementMap in2="turb" in="SourceGraphic" scale="8" xChannelSelector="R" yChannelSelector="G"/>
+    </filter>
+  </svg>
 </head>
 <body>
-  <div class="flash-effect" id="flash-effect"></div>
-  <div class="container">
-    <img src="https://pbs.twimg.com/profile_images/1855943987443736576/RYk6VW1z_400x400.jpg" alt="Atul Jakhar" class="avatar">
-    <div class="name">Atul Jakhar, Ph.D.</div>
-    <div class="title">Assistant Professor</div>
-    <div class="university">Dayananda Sagar University, Bengaluru, India</div>
-    <div class="about">
-      I am an Assistant Professor at Dayananda Sagar University, specializing in linear/nonlinear instability, heat and mass transfer, dynamical systems, and computational fluid dynamics. I hold an Integrated M.Sc. in Mathematics and a Ph.D. from the Central University of Rajasthan, where my doctoral research focused on the stability analysis of Newtonian fluids.<br><br>
-      Beyond academia, I am passionate about teaching, mentoring young minds, and fostering curiosity-driven research. I also enjoy maintaining an active lifestyle as a dedicated athlete.
-    </div>
-    <div class="research">
-      <strong>Research Interests:</strong><br>
-      • Linear/Nonlinear Instability<br>
-      • Heat and Mass Transfer<br>
-      • Dynamical Systems<br>
-      • Computational Fluid Dynamics<br>
-      • Bio-convection Phenomena<br>
-      • Stability Analysis of Newtonian Fluids
-    </div>
-    <div class="links">
-      <a href="mailto:2019phdmt002@curaj.ac.in">Email</a>
-      <a href="https://instagram.com/dratuljakhar"> Instagram</a>
-      <a href="https://github.com/atuljakhar">GitHub</a>
-      <a href="https://www.linkedin.com/in/dratuljakhar">LinkedIn</a>
-      <a href="https://x.com/dratuljakhar"> 𝕏 </a>
-    </div>
-    <div class="projects">
-      <div class="project-card">
-        <div class="project-title">Stability Analysis of Newtonian Fluids</div>
-        <div class="project-desc">
-          My doctoral research focused on the stability analysis of Newtonian fluids, with applications in nonlinear instability and bio-convection phenomena.
-        </div>
-        <a class="project-link" href="https://atuljakhar.github.io">Read More</a>
+  <main>
+    <section class="liquid-glass">
+      <img class="profile-img" src="https://pbs.twimg.com/profile_images/1855943987443736576/RYk6VW1z_400x400.jpg" alt="Atul Jakhar">
+      <div class="name">Atul Jakhar, Ph.D.</div>
+      <div class="title">Assistant Professor</div>
+      <div class="about">
+        I am an Assistant Professor at Dayananda Sagar University, specialising in linear/nonlinear instability, heat and mass transfer, dynamical systems, and computational fluid dynamics. I hold an Integrated M.Sc. in Mathematics and a Ph.D. from the Central University of Rajasthan, where my doctoral research focused on the instability analysis of Newtonian fluids.
+
       </div>
-      <div class="project-card">
-        <div class="project-title">Research Publications</div>
-        <div class="project-desc">
-          Published 14 research articles in Q1/Q2 SCI journals as of May 2025, covering topics such as heat and mass transfer, dynamical systems, and computational fluid dynamics.
+      <div class="info-list-wrapper">
+        <ul class="info-list">
+          <li>
+            <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M16 12a4 4 0 1 1-8 0 4 4 0 0 1 8 0Z"/><path d="M12 2v2m0 16v2m10-10h-2M4 12H2m15.07 7.07-1.42-1.42M6.34 6.34 4.92 4.92m12.02 0-1.42 1.42M6.34 17.66l-1.42 1.42"/></svg>
+            Location: India
+          </li>
+          <li>
+            <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M16 2a2 2 0 0 1 2 2v16a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8Z"/><path d="M9 7h6"/></svg>
+            atuljakhar.github.io
+          </li>
+          <li>
+            <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 10.5V6a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v4.5"/><path d="M3 10.5V18a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7.5"/><path d="m7 10.5 5 5 5-5"/></svg>
+            atuljakhar-maths@dsu.edu.in
+          </li>
+        </ul>
+        <div class="sticky-note" id="sticky-note" tabindex="0" aria-label="Current update: Click to expand">
+          <div class="sticky-title">Current update</div>
+          <div class="sticky-content">
+            Summer internship opportunity<br>
+            <span class="sticky-date">June 2025</span>
+          </div>
         </div>
-        <a class="project-link" href="https://scholar.google.co.in/citations?user=2P_eyfoAAAAJ&hl=en">View Publications</a>
       </div>
-      <div class="project-card">
-        <div class="project-title">Mentoring & Teaching</div>
-        <div class="project-desc">
-          Passionate about teaching and mentoring, I strive to foster curiosity-driven research and support the next generation of scientists and engineers.
-        </div>
-        <a class="project-link" href="mailto:2019phdmt002@curaj.ac.in">Contact Me</a>
+    
+      <div class="sections">
+        <button class="section-btn" data-modal="about-modal">About Me</button>
+        <button class="section-btn" data-modal="research-modal">Research</button>
+        <button class="section-btn" data-modal="teaching-modal">Teaching</button>
+      </div>
+    </section>
+  </main>
+
+  <!-- About Me Modal -->
+  <div class="modal" id="about-modal" tabindex="-1" aria-modal="true" role="dialog" aria-labelledby="about-modal-title">
+    <div class="modal-content">
+      <button class="modal-close" aria-label="Close" data-close>&times;</button>
+      <div class="modal-title" id="about-modal-title">About Me</div>
+      <div class="modal-body">
+        <p>I am an Assistant Professor at Dayananda Sagar University, specialising in linear/nonlinear instability, heat and mass transfer, dynamical systems, and computational fluid dynamics. I hold an Integrated M.Sc. in Mathematics and a Ph.D. from the Central University of Rajasthan, where my doctoral research focused on the stability analysis of Newtonian fluids.
+          <br>
+          Beyond academia, I am passionate about teaching, mentoring young minds, and fostering curiosity-driven research. I also enjoy maintaining an active lifestyle as a dedicated athlete.</p>
       </div>
     </div>
   </div>
+  <!-- Research Modal -->
+  <div class="modal" id="research-modal" tabindex="-1" aria-modal="true" role="dialog" aria-labelledby="research-modal-title">
+    <div class="modal-content">
+      <button class="modal-close" aria-label="Close" data-close>&times;</button>
+      <div class="modal-title" id="research-modal-title">Research</div>
+      <div class="modal-body">
+        <b>Research Interests:</b><br>        
+        • Linear/Nonlinear Instability <br>
+        • Heat and Mass Transfer <br>
+        • Dynamical Systems <br>
+        • Computational Fluid Dynamics <br>
+        • Bio-convection Phenomena <br>
+        • Stability Analysis of Newtonian Fluids<br>
+        <p>Published 14 research articles in Q1/Q2 SCI journals as of May 2025, covering topics such as heat and mass transfer, dynamical systems, and computational fluid dynamics.</p>
+
+      </div>
+    </div>
+  </div>
+  <!-- Teaching Modal -->
+  <div class="modal" id="teaching-modal" tabindex="-1" aria-modal="true" role="dialog" aria-labelledby="teaching-modal-title">
+    <div class="modal-content">
+      <button class="modal-close" aria-label="Close" data-close>&times;</button>
+      <div class="modal-title" id="teaching-modal-title">Teaching</div>
+      <div class="modal-body">
+        Passionate about teaching and mentoring, I strive to foster curiosity-driven research and support the next generation of scientists and engineers. I am passionate about teaching, mentoring young minds, and fostering curiosity-driven research. I also enjoy maintaining an active lifestyle as a dedicated athlete.
+      </div>
+    </div>
+  </div>
+  <!-- Sticky Note Modal -->
+  <div class="modal" id="sticky-modal" tabindex="-1" aria-modal="true" role="dialog" aria-labelledby="sticky-modal-title">
+    <div class="sticky-modal-content">
+      <button class="modal-close" aria-label="Close" data-close>&times;</button>
+      <div class="sticky-modal-title" id="sticky-modal-title">Current update</div>
+      <div class="sticky-modal-date">June 2025</div>
+      <div class="sticky-modal-body">
+        Currently, 03 students are under my supervision as summer intern.<br><br>
+        Details:<br>
+        &bull; Shekhar singh Tomar<br>
+        &bull; Naveen Jangid<br>
+        &bull; Narendra<br>
+        <br>
+        They have been assigned distinct and intriguing topics.  
+      </div>
+    </div>
+  </div>
+  <footer>
+    &copy; 2025 Atul Jakhar. All rights reserved.
+  </footer>
   <script>
-    const flash = document.getElementById('flash-effect');
-    let flashTimeout;
-
-    document.addEventListener('mousemove', function(e) {
-      const x = e.clientX;
-      const y = e.clientY;
-      flash.style.background = `radial-gradient(circle at ${x}px ${y}px, rgba(108,99,255,0.18) 0px, rgba(108,99,255,0.10) 60px, rgba(108,99,255,0.05) 120px, transparent 200px)`;
-      flash.style.transition = 'background 0s';
-
-      clearTimeout(flashTimeout);
-      flashTimeout = setTimeout(() => {
-        flash.style.transition = 'background 0.5s cubic-bezier(.4,0,.2,1)';
-        flash.style.background = 'none';
-      }, 60);
+    // Modal open/close logic for section buttons
+    document.querySelectorAll('.section-btn').forEach(btn => {
+      btn.addEventListener('click', function() {
+        const modalId = this.getAttribute('data-modal');
+        const modal = document.getElementById(modalId);
+        if (modal) {
+          modal.classList.add('active');
+          setTimeout(() => {
+            modal.querySelector('.modal-close').focus();
+          }, 100);
+        }
+      });
+    });
+    document.querySelectorAll('.modal-close').forEach(btn => {
+      btn.addEventListener('click', function() {
+        this.closest('.modal').classList.remove('active');
+      });
+    });
+    // Close modal on background click or Escape key
+    document.querySelectorAll('.modal').forEach(modal => {
+      modal.addEventListener('click', function(e) {
+        if (e.target === modal) {
+          modal.classList.remove('active');
+        }
+      });
+    });
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') {
+        document.querySelectorAll('.modal.active').forEach(modal => {
+          modal.classList.remove('active');
+        });
+      }
+    });
+    // Sticky note popup logic
+    const stickyNote = document.getElementById('sticky-note');
+    stickyNote.addEventListener('click', function() {
+      const modal = document.getElementById('sticky-modal');
+      modal.classList.add('active');
+      setTimeout(() => {
+        modal.querySelector('.modal-close').focus();
+      }, 100);
+    });
+    stickyNote.addEventListener('keydown', function(e) {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        const modal = document.getElementById('sticky-modal');
+        modal.classList.add('active');
+        setTimeout(() => {
+          modal.querySelector('.modal-close').focus();
+        }, 100);
+      }
     });
   </script>
 </body>
