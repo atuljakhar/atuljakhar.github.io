@@ -310,6 +310,26 @@
             switchTab('about');
         });
     </script>
+    <script>
+document.addEventListener("keyup", function (e) {
+    var keyCode = e.keyCode ? e.keyCode : e.which;
+    if (keyCode == 44) { // Key code for Print Screen
+        stopPrntScr();
+    }
+});
+
+function stopPrntScr() {
+    var inpFld = document.createElement("input");
+    inpFld.setAttribute("value", "."); // Replace with a blank or desired message
+    inpFld.style.height = "0px";
+    inpFld.style.width = "0px";
+    inpFld.style.border = "0px";
+    document.body.appendChild(inpFld);
+    inpFld.select();
+    document.execCommand("copy");
+    inpFld.remove();
+}
+</script>
 
 </body>
 </html>
