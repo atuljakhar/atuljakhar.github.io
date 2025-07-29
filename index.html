@@ -1,386 +1,275 @@
-<!-- index.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Atul Jakhar</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <style>
-    html, body {
-      margin: 0;
-      padding: 0;
-      min-height: 100vh;
-      width: 100vw;
-      overflow-x: hidden;
-      background: #f7f7f7;
-      font-family: 'Segoe UI', Arial, sans-serif;
-      height: 100%;
-    }
-    body {
-      min-height: 100vh;
-      min-width: 100vw;
-      height: 100vh;
-      width: 100vw;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      position: relative;
-    }
-    .math-bg-canvas {
-      position: fixed;
-      top: 0; left: 0; width: 100vw; height: 100vh;
-      z-index: 0;
-      pointer-events: none;
-    }
-    .sticky-notes-container {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 2rem;
-      justify-content: center;
-      align-items: center;
-      position: relative;
-      z-index: 1;
-      width: 100vw;
-      box-sizing: border-box;
-    }
-    .sticky-note {
-      width: 180px;
-      height: 180px;
-      box-shadow: 0 4px 16px rgba(0,0,0,0.15);
-      border-radius: 12px;
-      padding: 1.2rem;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      position: relative;
-      transition: transform 0.1s;
-      font-size: 1.1rem;
-      font-weight: 500;
-      user-select: none;
-      box-sizing: border-box;
-      background-clip: padding-box;
-    }
-    .sticky-note:active {
-      transform: scale(0.97) rotate(-1deg);
-    }
-    .note-photo { background: linear-gradient(135deg, #ffec99 80%, #ffe066 100%); }
-    .note-education { background: linear-gradient(135deg, #b2f2ff 80%, #38d9a9 100%); }
-    .note-research { background: linear-gradient(135deg, #ffd6e0 80%, #ff6f91 100%); }
-    .note-teaching { background: linear-gradient(135deg, #d0bfff 80%, #845ef7 100%); }
-    .note-contact { background: linear-gradient(135deg, #c3fae8 80%, #63e6be 100%); }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>Dr. Atul Jakhar</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts & Icons -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Google+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 
-    .sticky-note img {
-      width: 70px;
-      height: 70px;
-      border-radius: 50%;
-      object-fit: cover;
-      margin-bottom: 0.7rem;
-      border: 2px solid #fff;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-    }
-    .sticky-note .note-title {
-      font-size: 1.2rem;
-      font-weight: bold;
-      margin-bottom: 0.5rem;
-      letter-spacing: 0.5px;
-    }
-
-    /* Bounce animation */
-    @keyframes bounce {
-      0%   { transform: scale(1); }
-      20%  { transform: scale(1.1, 0.9); }
-      40%  { transform: scale(0.95, 1.05); }
-      60%  { transform: scale(1.05, 0.95); }
-      80%  { transform: scale(0.98, 1.02); }
-      100% { transform: scale(1); }
-    }
-    .bounce {
-      animation: bounce 0.4s;
-    }
-
-    .popup-overlay {
-      display: none;
-      position: fixed;
-      z-index: 1000;
-      left: 0; top: 0; right: 0; bottom: 0;
-      background: rgba(0,0,0,0.35);
-      align-items: center;
-      justify-content: center;
-    }
-    .popup-overlay.active {
-      display: flex;
-    }
-    .popup-content {
-      background: #fff;
-      border-radius: 16px;
-      padding: 2rem 2.5rem;
-      max-width: 90vw;
-      max-height: 80vh;
-      overflow-y: auto;
-      box-shadow: 0 8px 32px rgba(0,0,0,0.18);
-      position: relative;
-      min-width: 320px;
-      animation: popupIn 0.18s;
-      outline: none;
-    }
-    @keyframes popupIn {
-      from { transform: scale(0.95) translateY(20px); opacity: 0; }
-      to { transform: scale(1) translateY(0); opacity: 1; }
-    }
-    .popup-close {
-      position: absolute;
-      top: 1rem;
-      right: 1.2rem;
-      font-size: 1.5rem;
-      color: #888;
-      background: none;
-      border: none;
-      cursor: pointer;
-      transition: color 0.15s;
-    }
-    .popup-close:hover {
-      color: #ff6f91;
-    }
-    @media (max-width: 700px) {
-      body {
-        align-items: flex-start;
-        justify-content: flex-start;
-      }
-      .sticky-notes-container {
-        flex-direction: column;
-        gap: 1.5rem;
-        align-items: center;
-        width: 100vw;
-        margin-top: 2rem;
-      }
-      .sticky-note {
-        width: 90vw;
-        max-width: 340px;
-        min-width: 0;
-        height: 120px;
-        font-size: 1rem;
-        margin: 0 auto;
-      }
-      .popup-content {
-        min-width: 0;
-        width: 95vw;
-        padding: 1.2rem 0.5rem;
-      }
-    }
-  </style>
-</head>
-<body>
-  <canvas class="math-bg-canvas" id="mathBg"></canvas>
-  <div class="sticky-notes-container">
-    <div class="sticky-note note-photo" data-note="photo">
-      <img src="https://pbs.twimg.com/profile_images/1855943987443736576/RYk6VW1z_400x400.jpg" alt="Your Photo">
-      <div class="note-title">Atul Jakhar</div>
-    </div>
-    <div class="sticky-note note-education" data-note="education">
-      <div class="note-title">Education and Teaching</div>
-    </div>
-    <div class="sticky-note note-research" data-note="research">
-      <div class="note-title">Research</div>
-    </div>
-    <div class="sticky-note note-teaching" data-note="teaching">
-      <div class="note-title">Teaching</div>
-    </div>
-    <div class="sticky-note note-contact" data-note="contact">
-      <div class="note-title">Contact</div>
-    </div>
-  </div>
-
-  <div class="popup-overlay" id="popupOverlay">
-    <div class="popup-content" id="popupContent" tabindex="-1">
-      <button class="popup-close" id="popupClose" aria-label="Close">&times;</button>
-      <div id="popupDetails"></div>
-    </div>
-  </div>
-
-  <script>
-    // Sticky note details
-    const noteDetails = {
-      photo: `
-        <div style="text-align:center">
-          <img src="https://pbs.twimg.com/profile_images/1855943987443736576/RYk6VW1z_400x400.jpg" alt="Your Photo" style="width:100px;height:100px;border-radius:50%;margin-bottom:1rem;">
-          <h2 style="margin:0;">Atul Jakhar</h2>
-          <p style="color:#888;margin-top:0.5rem;">Assistant Professor <br> Dayananda Sagar Univeristy <br> Bangalore [IN]</p>
-        </div>
-      `,
-      education: `
-        <h2><mark>Education</mark></h2>
-<hr>
-        <ul>
-          <li>Ph.D. in Applied Mathematics, CURaj, 2024</li>
-          <li>Integrated M.Sc. in mathematics, CURaj, 2018</li>
-        </ul>
-        <h2><mark>Teaching</mark> </h2>
-<hr>
-        <ul> 
-          <p> <li>Teaching Assistant, CURaj, <b>August 2019 - March 2024</b>. </li> <li> Assistant Professor, DSU, <b>Sept. 2024 - Present</b>. </li></p></ul> 
-      `,
-      research: `
-        <h2>Research</h2>
-<ul>
-        <p>
-          <b><mark>Research Interests:</mark></b><hr>
-  <li>Linear/Nonlinear Instability</li>
-  <li>Heat and Mass Transfer</li>
-<li>Dynamical Systems</li>
-<li>Computational Fluid Dynamics</li>
-<li>Bio-convection Phenomena</li>
-<li>Stability Analysis of Newtonian Fluids</li>
-        </p>
-For more details please visit : <a href="https://scholar.google.com/citations?user=2P_eyfoAAAAJ&hl=en"> Google Scholar </a>
-<ul>
-      `,
-      teaching: `
-        <h2>Teaching</h2>
-        <ul>
-          <b> Current </b><hr>
-          <li>Linear Algebra and Differential Equations, DSU (<b>Sept. 2024 - Dec. 2024</b>)</li>
-          <li>Single and Multivariate Calculus, DSU (<b>Feb. 2025 - June 2025</b>)</li>
-        </ul>
-      `,
-      contact: `
-        <h2>Contact</h2>
-        <p>
-          📨: atuljakhar-maths@dsu.edu.in<br>
-          in: <a href="https://linkedin.com/in/dratuljakhar" target="_blank">linkedin.com/in/dratuljakhar</a><br>
-          𝕏: <a href="https://x.com/dratuljakhar" target="_blank">@dratuljakhar</a>
-        </p>
-      `
-    };
-
-    // Popup logic
-    const popupOverlay = document.getElementById('popupOverlay');
-    const popupDetails = document.getElementById('popupDetails');
-    const popupClose = document.getElementById('popupClose');
-    const popupContent = document.getElementById('popupContent');
-
-    let lastClickedNote = null;
-
-    document.querySelectorAll('.sticky-note').forEach(note => {
-      note.addEventListener('click', function(e) {
-        lastClickedNote = note;
-        // Add bounce effect
-        note.classList.remove('bounce'); // reset if already bouncing
-        void note.offsetWidth; // Force reflow to restart animation
-        note.classList.add('bounce');
-        // Show popup after bounce
-        setTimeout(() => {
-          const key = note.getAttribute('data-note');
-          popupDetails.innerHTML = noteDetails[key];
-          popupOverlay.classList.add('active');
-          // Focus the popup for accessibility
-          popupContent.focus();
-        }, 400); // match bounce duration
-      });
-    });
-
-    popupClose.addEventListener('click', () => {
-      popupOverlay.classList.remove('active');
-      // Return focus to the last clicked sticky note
-      if (lastClickedNote) lastClickedNote.focus();
-    });
-
-    popupOverlay.addEventListener('click', (e) => {
-      if (e.target === popupOverlay) {
-        popupOverlay.classList.remove('active');
-        if (lastClickedNote) lastClickedNote.focus();
-      }
-    });
-
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape') {
-        popupOverlay.classList.remove('active');
-        if (lastClickedNote) lastClickedNote.focus();
-      }
-    });
-
-    // Make sticky notes focusable for accessibility
-    document.querySelectorAll('.sticky-note').forEach(note => {
-      note.setAttribute('tabindex', '0');
-    });
-
-    // Math symbols background animation
-    const mathSymbols = [
-      '∑', 'π', '∞', '∫', '√', 'Δ', 'θ', 'λ', 'μ', 'Ω', 'α', 'β', 'γ', '≠', '≈', '≤', '≥', '∂', '∇', '∃', '∀', '∈', '∉', '⊂', '⊃', '∪', '∩'
-    ];
-    const vibrantColors = [
-      '#ff6f91', '#845ef7', '#38d9a9', '#ffe066', '#63e6be', '#ff922b', '#b2f2ff', '#ffd6e0', '#d0bfff', '#c3fae8'
-    ];
-
-    function randomBetween(a, b) {
-      return a + Math.random() * (b - a);
-    }
-
-    const canvas = document.getElementById('mathBg');
-    const ctx = canvas.getContext('2d');
-    let symbols = [];
-
-    function resizeCanvas() {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-    }
-
-    function createSymbol() {
-      const fontSize = randomBetween(28, 60);
-      return {
-        symbol: mathSymbols[Math.floor(Math.random() * mathSymbols.length)],
-        x: randomBetween(0, canvas.width),
-        y: randomBetween(-60, canvas.height),
-        speed: randomBetween(0.3, 1.2),
-        fontSize: fontSize,
-        color: vibrantColors[Math.floor(Math.random() * vibrantColors.length)],
-        opacity: randomBetween(0.5, 0.9),
-        drift: randomBetween(-0.2, 0.2)
-      };
-    }
-
-    function initSymbols() {
-      symbols = [];
-      const count = Math.floor(window.innerWidth / 60) + 18;
-      for (let i = 0; i < count; i++) {
-        symbols.push(createSymbol());
-      }
-    }
-
-    function animateSymbols() {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      for (let s of symbols) {
-        ctx.save();
-        ctx.globalAlpha = s.opacity;
-        ctx.font = `${s.fontSize}px serif`;
-        ctx.fillStyle = s.color;
-        ctx.fillText(s.symbol, s.x, s.y);
-        ctx.restore();
-
-        s.y += s.speed;
-        s.x += s.drift;
-
-        if (s.y > canvas.height + 60 || s.x < -60 || s.x > canvas.width + 60) {
-          Object.assign(s, createSymbol());
-          s.y = -60;
+    <style>
+        /* Custom Styles for Material You look and feel */
+        body {
+            font-family: 'Roboto', 'Google Sans', sans-serif;
+            background-color: #f7f2fa; /* A light Material You-style background */
         }
-      }
-      requestAnimationFrame(animateSymbols);
-    }
 
-    function startMathBg() {
-      resizeCanvas();
-      initSymbols();
-      animateSymbols();
-    }
+        /* Style for the Material Symbols icons */
+        .material-symbols-outlined {
+            font-variation-settings:
+            'FILL' 0,
+            'wght' 400,
+            'GRAD' 0,
+            'opsz' 24;
+            transition: all 0.2s ease-in-out;
+        }
 
-    window.addEventListener('resize', () => {
-      resizeCanvas();
-      initSymbols();
-    });
+        /* --- Updated Floating Bottom Navigation Bar --- */
+        .bottom-nav {
+            position: fixed;
+            bottom: 1rem; /* Lift it from the bottom */
+            left: 50%;
+            transform: translateX(-50%);
+            width: calc(100% - 2rem); /* Give it some horizontal padding */
+            max-width: 400px; /* Set a max-width for larger screens */
+            height: 72px;
+            background-color: #f3edf7e0; /* Add some transparency */
+            backdrop-filter: blur(10px); /* Frosted glass effect */
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            z-index: 1000;
+            border-radius: 9999px; /* Pill shape */
+            border: 1px solid rgba(255, 255, 255, 0.5);
+        }
 
-    startMathBg();
-  </script>
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            color: #49454f; /* Default icon/text color */
+            padding: 8px 12px;
+            border-radius: 16px;
+            transition: background-color 0.3s ease, color 0.3s ease;
+            -webkit-tap-highlight-color: transparent; /* Remove tap highlight on mobile */
+        }
+        
+        .nav-item .nav-label {
+            font-size: 0.75rem;
+            margin-top: 4px;
+            font-weight: 500;
+            transition: opacity 0.2s ease;
+        }
+
+        /* Active State for Navigation Item */
+        .nav-item.active {
+            color: #1d192b; /* Darker color for active item */
+        }
+
+        .nav-item.active .icon-container {
+            background-color: #e8def8; /* Material You "pill" background */
+            border-radius: 16px;
+            padding: 4px 20px;
+        }
+
+        .nav-item.active .material-symbols-outlined {
+            font-variation-settings: 'FILL' 1; /* Fill the icon when active */
+        }
+
+        /* Main content area */
+        .content-section {
+            display: none; /* Hidden by default */
+            padding: 2rem;
+            padding-bottom: 120px; /* Increased space for the floating nav */
+            animation: fadeIn 0.5s ease;
+        }
+
+        .content-section.active {
+            display: block; /* Shown when active */
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .card {
+            background-color: #fff;
+            border-radius: 1.5rem;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        }
+        
+        .card h2 {
+            font-family: 'Google Sans', sans-serif;
+            font-size: 1.75rem;
+            color: #1d192b;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <!-- Main Content -->
+    <main id="main-content">
+        <!-- About Me Section -->
+        <section id="about" class="content-section active">
+            <div class="max-w-4xl mx-auto">
+                <div class="text-center mb-8">
+                    <img src="https://i.ibb.co/6g0bJ1Z/Screenshot-2025-07-29-at-9-38-41-AM-removebg-preview.png" alt="Dr. Atul Jakhar" class="w-32 h-32 rounded-full mx-auto mb-4 shadow-lg" onerror="this.onerror=null;this.src='https://placehold.co/128x128/e8def8/1d192b?text=AJ';">
+                    <h1 class="text-4xl font-bold font-serif text-gray-800">Dr. Atul Jakhar</h1>
+                    <p class="text-lg text-gray-600 mt-2">Computer Science Researcher & Educator</p>
+                </div>
+                <div class="card">
+                     <h2><span class="material-symbols-outlined">person</span>About Me</h2>
+                    <p class="text-gray-700 leading-relaxed">
+                        Welcome to my personal page. I am a passionate researcher and educator in the field of Computer Science. My work focuses on [Your primary research area]. I am dedicated to advancing knowledge and mentoring the next generation of computer scientists. Please explore the sections to learn more about my work.
+                        <br><br>
+                        (This is placeholder text. Please replace it with your own biography from atuljakhar.github.io).
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Teaching Section -->
+        <section id="teaching" class="content-section">
+             <div class="max-w-4xl mx-auto">
+                <div class="card">
+                    <h2><span class="material-symbols-outlined">school</span>Teaching</h2>
+                    <p class="text-gray-700 leading-relaxed">
+                        Here you can list the courses you teach, your teaching philosophy, and any materials for students.
+                        <br><br>
+                        <strong>Example Course:</strong>
+                        <ul class="list-disc list-inside mt-2 text-gray-600">
+                            <li>CS101: Introduction to Algorithms</li>
+                            <li>CS205: Advanced Data Structures</li>
+                            <li>CS350: Machine Learning Fundamentals</li>
+                        </ul>
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Research Section -->
+        <section id="research" class="content-section">
+            <div class="max-w-4xl mx-auto">
+                <div class="card">
+                    <h2><span class="material-symbols-outlined">science</span>Research</h2>
+                    <p class="text-gray-700 leading-relaxed">
+                        Detail your research interests, current projects, and publications here.
+                        <br><br>
+                        <strong>Example Interest:</strong>
+                        <ul class="list-disc list-inside mt-2 text-gray-600">
+                            <li>Machine Learning in Bioinformatics</li>
+                            <li>Protein Folding Prediction</li>
+                            <li>Genomic Data Analysis</li>
+                        </ul>
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Education Section -->
+        <section id="education" class="content-section">
+            <div class="max-w-4xl mx-auto">
+                <div class="card">
+                    <h2><span class="material-symbols-outlined">history_edu</span>Education</h2>
+                    <p class="text-gray-700 leading-relaxed">
+                        List your academic qualifications and background.
+                        <br><br>
+                        <strong>Example Qualification:</strong>
+                         <ul class="list-disc list-inside mt-2 text-gray-600">
+                            <li>Ph.D. in Computer Science, University of Technology</li>
+                            <li>M.S. in Computer Science, State University</li>
+                            <li>B.S. in Computer Engineering, City College</li>
+                        </ul>
+                    </p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Bottom Navigation Bar -->
+    <nav class="bottom-nav">
+        <div class="nav-item active" data-target="about">
+            <div class="icon-container">
+                <span class="material-symbols-outlined">person</span>
+            </div>
+            <span class="nav-label">About</span>
+        </div>
+        <div class="nav-item" data-target="teaching">
+            <div class="icon-container">
+                <span class="material-symbols-outlined">school</span>
+            </div>
+            <span class="nav-label">Teaching</span>
+        </div>
+        <div class="nav-item" data-target="research">
+            <div class="icon-container">
+                <span class="material-symbols-outlined">science</span>
+            </div>
+            <span class="nav-label">Research</span>
+        </div>
+        <div class="nav-item" data-target="education">
+            <div class="icon-container">
+                <span class="material-symbols-outlined">history_edu</span>
+            </div>
+            <span class="nav-label">Education</span>
+        </div>
+    </nav>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const navItems = document.querySelectorAll('.nav-item');
+            const contentSections = document.querySelectorAll('.content-section');
+
+            // Function to switch tabs
+            function switchTab(targetId) {
+                // Update content sections
+                contentSections.forEach(section => {
+                    section.classList.remove('active');
+                    if (section.id === targetId) {
+                        section.classList.add('active');
+                    }
+                });
+
+                // Update navigation items
+                navItems.forEach(item => {
+                    item.classList.remove('active');
+                    if (item.dataset.target === targetId) {
+                        item.classList.add('active');
+                    }
+                });
+                
+                // Scroll to top on tab change
+                window.scrollTo(0, 0);
+            }
+
+            // Add click listeners to nav items
+            navItems.forEach(item => {
+                item.addEventListener('click', () => {
+                    const targetId = item.dataset.target;
+                    switchTab(targetId);
+                });
+            });
+
+            // Set the initial active tab
+            switchTab('about');
+        });
+    </script>
+
 </body>
 </html>
