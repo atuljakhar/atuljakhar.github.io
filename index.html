@@ -15,6 +15,17 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 
     <style>
+
+        @media print {
+        body {
+            display: none; /* Hides the entire page when printed */
+        }
+        /* Or, to hide specific elements */
+        .no-print {
+            display: none;
+        }
+    }
+        
         /* Disables text selection for the entire body */
         body {
               -webkit-user-select: none; /* Safari */
