@@ -1,336 +1,470 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="light">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <title>Dr. Atul Jakhar</title>
-    
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    
-    <!-- Google Fonts & Icons -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Google+Sans:wght@400;500;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dr. Atul Jakhar - Postdoctoral Fellow</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
+        :root {
+            --bg-color: #ffffff;
+            --bg-secondary: #f8f9fa;
+            --text-primary: #1a1a1a;
+            --text-secondary: #666666;
+            --border-color: #e5e7eb;
+            --accent-color: #2563eb;
+            --hover-bg: #f3f4f6;
+            --sidebar-width: 320px;
+        }
 
-        @media print {
+        [data-theme="dark"] {
+            --bg-color: #111827;
+            --bg-secondary: #1f2937;
+            --text-primary: #f9fafb;
+            --text-secondary: #9ca3af;
+            --border-color: #374151;
+            --accent-color: #60a5fa;
+            --hover-bg: #374151;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+        }
+
         body {
-            display: none; /* Hides the entire page when printed */
-        }
-        /* Or, to hide specific elements */
-        .no-print {
-            display: none;
-        }
-    }
-        
-        /* Disables text selection for the entire body */
-        body {
-              -webkit-user-select: none; /* Safari */
-              -ms-user-select: none; /* IE 10 and IE 11 */
-              user-select: none; /* Standard syntax */
-            }
-
-        /* Custom Styles for Material You look and feel */
-        body {
-            font-family: 'Roboto', 'Google Sans', sans-serif;
-            background-color: #f7f2fa; /* A light Material You-style background */
-        }
-
-        /* Style for the Material Symbols icons */
-        .material-symbols-outlined {
-            font-variation-settings:
-            'FILL' 0,
-            'wght' 400,
-            'GRAD' 0,
-            'opsz' 24;
-            transition: all 0.2s ease-in-out;
-        }
-
-        /* --- Updated Floating Bottom Navigation Bar --- */
-        .bottom-nav {
-            position: fixed;
-            bottom: 1rem; /* Lift it from the bottom */
-            left: 50%;
-            transform: translateX(-50%);
-            width: calc(100% - 2rem); /* Give it some horizontal padding */
-            max-width: 400px; /* Set a max-width for larger screens */
-            height: 72px;
-            background-color: #f3edf7e0; /* Add some transparency */
-            backdrop-filter: blur(10px); /* Frosted glass effect */
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-primary);
+            line-height: 1.6;
             display: flex;
-            justify-content: space-around;
-            align-items: center;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-            z-index: 1000;
-            border-radius: 9999px; /* Pill shape */
-            border: 1px solid rgba(255, 255, 255, 0.5);
+            min-height: 100vh;
         }
 
-        .nav-item {
+        /* --- SIDEBAR --- */
+        .sidebar {
+            width: var(--sidebar-width);
+            height: 100vh;
+            position: fixed;
+            left: 0;
+            top: 0;
+            padding: 2.5rem 2rem;
+            border-right: 1px solid var(--border-color);
             display: flex;
             flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            color: #49454f; /* Default icon/text color */
-            padding: 8px 12px;
-            border-radius: 16px;
-            transition: background-color 0.3s ease, color 0.3s ease;
-            -webkit-tap-highlight-color: transparent; /* Remove tap highlight on mobile */
-        }
-        
-        .nav-item .nav-label {
-            font-size: 0.75rem;
-            margin-top: 4px;
-            font-weight: 500;
-            transition: opacity 0.2s ease;
+            background-color: var(--bg-color);
+            overflow-y: auto;
+            z-index: 50;
         }
 
-        /* Active State for Navigation Item */
-        .nav-item.active {
-            color: #1d192b; /* Darker color for active item */
+        .profile-header {
+            text-align: center;
+            margin-bottom: 2rem;
         }
 
-        .nav-item.active .icon-container {
-            background-color: #e8def8; /* Material You "pill" background */
-            border-radius: 16px;
-            padding: 4px 20px;
-        }
-
-        .nav-item.active .material-symbols-outlined {
-            font-variation-settings: 'FILL' 1; /* Fill the icon when active */
-        }
-
-        /* Main content area */
-        .content-section {
-            display: none; /* Hidden by default */
-            padding: 2rem;
-            padding-bottom: 120px; /* Increased space for the floating nav */
-            animation: fadeIn 0.5s ease;
-        }
-
-        .content-section.active {
-            display: block; /* Shown when active */
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        
-        .card {
-            background-color: #fff;
-            border-radius: 1.5rem;
-            padding: 1.5rem;
+        .avatar {
+            width: 160px;
+            height: 160px;
+            border-radius: 50%;
+            object-fit: cover;
             margin-bottom: 1.5rem;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            border: 2px solid var(--border-color);
+            padding: 4px;
         }
-        
-        .card h2 {
-            font-family: 'Google Sans', sans-serif;
-            font-size: 1.75rem;
-            color: #1d192b;
-            margin-bottom: 1rem;
+
+        .name {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            color: var(--text-primary);
+        }
+
+        .role {
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+
+        .location {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
             display: flex;
             align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        /* Navigation */
+        .nav-menu {
+            list-style: none;
+            margin-top: 2rem;
+            width: 100%;
+        }
+
+        .nav-link {
+            display: block;
+            padding: 0.75rem 1rem;
+            color: var(--text-secondary);
+            text-decoration: none;
+            border-radius: 8px;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            transition: all 0.2s;
+        }
+
+        .nav-link:hover, .nav-link.active {
+            background-color: var(--hover-bg);
+            color: var(--accent-color);
+        }
+
+        .nav-link i {
+            width: 24px;
+            margin-right: 8px;
+        }
+
+        /* Theme Toggle */
+        .theme-toggle {
+            margin-top: auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            cursor: pointer;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            padding: 1rem;
+            border-top: 1px solid var(--border-color);
+        }
+
+        /* --- MAIN CONTENT --- */
+        .main-content {
+            margin-left: var(--sidebar-width);
+            flex: 1;
+            padding: 4rem 5rem;
+            max-width: 1000px;
+        }
+
+        section {
+            margin-bottom: 5rem;
+            scroll-margin-top: 4rem;
+        }
+
+        .section-title {
+            font-size: 1.75rem;
+            font-weight: 700;
+            margin-bottom: 2rem;
+            color: var(--text-primary);
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 0;
+            width: 40px;
+            height: 4px;
+            background-color: var(--accent-color);
+            border-radius: 2px;
+        }
+
+        /* Content Blocks */
+        .about-text {
+            color: var(--text-secondary);
+            font-size: 1.05rem;
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+        }
+
+        /* Timeline Items (Experience/Education) */
+        .timeline-item {
+            display: grid;
+            grid-template-columns: 180px 1fr;
+            gap: 2rem;
+            margin-bottom: 2.5rem;
+            align-items: flex-start;
+        }
+
+        .timeline-date {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            font-weight: 500;
+            padding-top: 4px;
+        }
+
+        .timeline-content h3 {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--text-primary);
+        }
+
+        .timeline-content h4 {
+            font-size: 1rem;
+            color: var(--accent-color);
+            margin-bottom: 0.75rem;
+        }
+
+        .timeline-content p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        /* Tags/Chips */
+        .tags {
+            display: flex;
+            flex-wrap: wrap;
             gap: 0.75rem;
+            margin-top: 1rem;
+        }
+
+        .tag {
+            background-color: var(--bg-secondary);
+            color: var(--text-primary);
+            padding: 0.4rem 0.8rem;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            border: 1px solid var(--border-color);
+            font-weight: 500;
+        }
+
+        /* Social Links */
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .social-icon {
+            color: var(--text-secondary);
+            font-size: 1.2rem;
+            transition: color 0.2s;
+        }
+
+        .social-icon:hover {
+            color: var(--accent-color);
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 968px) {
+            body {
+                flex-direction: column;
+            }
+
+            .sidebar {
+                width: 100%;
+                height: auto;
+                position: relative;
+                padding: 2rem 1rem;
+                border-right: none;
+                border-bottom: 1px solid var(--border-color);
+            }
+
+            .main-content {
+                margin-left: 0;
+                padding: 2rem 1.5rem;
+            }
+
+            .timeline-item {
+                grid-template-columns: 1fr;
+                gap: 0.5rem;
+            }
+
+            .timeline-date {
+                color: var(--accent-color);
+                font-size: 0.85rem;
+                margin-bottom: 0.25rem;
+            }
         }
     </style>
 </head>
-<body class="antialiased" oncontextmenu="return false;">
+<body>
 
-    <!-- Main Content -->
-    <main id="main-content">
-        <!-- About Me Section -->
-        <section id="about" class="content-section active">
-            <div class="max-w-4xl mx-auto">
-                <div class="text-center mb-8">
-                    <img src="https://pbs.twimg.com/profile_images/1855943987443736576/RYk6VW1z_400x400.jpg" alt="Dr. Atul Jakhar" class="w-32 h-32 rounded-full mx-auto mb-4 shadow-lg" onerror="this.onerror=null;this.src='https://placehold.co/128x128/e8def8/1d192b?text=AJ';">
-                    <h1 class="text-4xl font-bold font-serif text-gray-800">Dr. Atul Jakhar</h1>
-                    <p class="text-lg text-gray-600 mt-2"> <a href="https://www.dsu.edu.in/atul-jakhar">Assistant Professor</a> 🧑‍🏫 | Motivational Speaker 🧠| Athlete 💪🏻 | Human ✌🏻</p>
+    <aside class="sidebar">
+        <div class="profile-header">
+            <img src="https://pbs.twimg.com/profile_images/1855943987443736576/RYk6VW1z_400x400.jpg" alt="Dr. Atul Jakhar" class="avatar">
+            <h1 class="name">Dr. Atul Jakhar</h1>
+            <div class="role">Postdoctoral Fellow</div>
+            <div class="role" style="font-size: 0.9rem;">IIT Madras</div>
+            <div class="location">
+                <i class="fas fa-map-marker-alt"></i> Chennai, India
+            </div>
+            
+            <div class="social-links">
+                <a href="https://scholar.google.com/citations?user=2P_eyfoAAAAJ&hl=en" target="_blank" class="social-icon" title="Google Scholar"><i class="fas fa-graduation-cap"></i></a>
+                <a href="https://www.linkedin.com/in/dratuljakhar/" target="_blank" class="social-icon" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                <a href="https://github.com/atuljakhar" target="_blank" class="social-icon" title="GitHub"><i class="fab fa-github"></i></a>
+                <a href="mailto:atuljakhar@iitm.ac.in" class="social-icon" title="Email"><i class="fas fa-envelope"></i></a>
+            </div>
+        </div>
+
+        <nav>
+            <ul class="nav-menu">
+                <li><a href="#about" class="nav-link active"><i class="fas fa-user"></i> About</a></li>
+                <li><a href="#experience" class="nav-link"><i class="fas fa-briefcase"></i> Experience</a></li>
+                <li><a href="#education" class="nav-link"><i class="fas fa-user-graduate"></i> Education</a></li>
+                <li><a href="#research" class="nav-link"><i class="fas fa-flask"></i> Research</a></li>
+                <li><a href="#teaching" class="nav-link"><i class="fas fa-chalkboard-teacher"></i> Teaching</a></li>
+            </ul>
+        </nav>
+
+        <div class="theme-toggle" onclick="toggleTheme()">
+            <i class="fas fa-moon" id="theme-icon"></i>
+            <span id="theme-text">Dark Mode</span>
+        </div>
+    </aside>
+
+    <main class="main-content">
+        
+        <section id="about">
+            <h2 class="section-title">About Me</h2>
+            <div class="about-text">
+                <p>Hello! I'm <strong>Dr. Atul Jakhar</strong>, currently working as a Postdoctoral Fellow at the <strong>Indian Institute of Technology (IIT) Madras</strong>. My work sits at the intersection of classical mechanics and modern technology, specifically exploring <strong>Computational Fluid Mechanics (CFD)</strong> and the application of Artificial Intelligence in fluid dynamics.</p>
+                <br>
+                <p>My research investigates the dynamic behavior of fluids through numerical methods and simulations, with a particular focus on instability and chaos. Beyond academia, I am a passionate athlete and motivational speaker, believing that the discipline required in sports translates directly to scientific rigor.</p>
+            </div>
+        </section>
+
+        <section id="experience">
+            <h2 class="section-title">Academic Positions</h2>
+            
+            <div class="timeline-item">
+                <div class="timeline-date">2024 — Present</div>
+                <div class="timeline-content">
+                    <h3>Postdoctoral Fellow</h3>
+                    <h4>Indian Institute of Technology (IIT) Madras</h4>
+                    <p>Conducting advanced research in fluid dynamics, focusing on AI-driven simulations and stability analysis.</p>
                 </div>
-                <div class="card">
-                     <h2><span class="material-symbols-outlined">person</span>About Me</h2>
-                    <p class="text-gray-700 leading-relaxed">
-                       Hello! I'm <b>Atul Jakhar</b>, an Assistant Professor at <b>Dayananda Sagar University</b>, where I specialize in <b>Computational Fluid Mechanics</b>. My research explores the dynamic behavior of fluids through numerical methods and simulations, and I am currently delving into the exciting intersection of <b>Artificial Intelligence and Fluid Mechanics</b> to simplify and enhance problem-solving in this complex field.
-<br>Beyond academia, I'm a dedicated <b>athlete</b> who believes in the power of discipline and perseverance, both on the field and in life. I’m also passionate about inspiring others as a <b>motivational speaker</b>, sharing insights on personal growth, resilience, and the human potential to achieve excellence.
-<br>Welcome to my space, where science, sports, and self-mastery converge.   
-                    </p>
-                    <br>
-                    <br>
-                    <b>Contact address:</b> <a href="mailto:atuljakhar-maths@dsu.edu.in">E-mail 📨 </a>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-date">Previous</div>
+                <div class="timeline-content">
+                    <h3>Assistant Professor</h3>
+                    <h4>Dayananda Sagar University</h4>
+                    <p>Taught undergraduate courses including Linear Algebra, Differential Equations, and Multivariate Calculus. Developed curriculum for "Transformations and Numerical Techniques".</p>
                 </div>
             </div>
         </section>
 
-        <!-- Teaching Section -->
-        <section id="teaching" class="content-section">
-             <div class="max-w-4xl mx-auto">
-                <div class="card">
-                    <h2><span class="material-symbols-outlined">school</span>Teaching</h2>
-                    <p class="text-gray-700 leading-relaxed">
-                        Teaching philosophy, and any materials for students:
-                        <hr>
-                        <br><br>
-                        <strong>Course taught:</strong>
-                        <ul class="list-disc list-inside mt-2 text-gray-600">
-                            <li>24EN1101: Linear Algebra and Differentail equations. (B.Tech.)</li>
-                            <li>24EN1201: Single and Multivariate Calculus. (B.Tech.)</li>
-                        </ul>
-                    <br>
-                    <br>
-                    <strong>Teaching material:</strong>
-                    <ul class="list-disc list-inside mt-2 text-gray-600">
-                        <p> Transformations and Numerical Techniques (<a href="https://classroom.google.com/c/NzkxMTg5NzcxNTk3?cjc=j65qca5z"> <b>Google Classroom</b> </a>)  </p>
-                       <li> <a href="https://drive.google.com/file/d/1Xun4uKgfuUyFmxksHtZcYR-9a5i2VFHw/view?usp=share_link"> <b>Syllabus scheme</b> </a></li>
-                        <li> <a href="https://drive.google.com/file/d/1mQUftamjwjuqPt9QEBMIHYKdxdc586Ig/view?usp=sharing"> <b>Unit-4</b> (Numerical methods for ode)</a></li>
-                        <li> <a href="https://drive.google.com/file/d/1u9dCn0TF21CDYN_OrdP-Gzm3ch8UnK9v/view?usp=sharing"> <b>Unit-5</b> (Numerical methods for pde)</a></li>
-                 <li> <a href="https://drive.google.com/file/d/1bIi5GJOvcm9vwY-xRvAxwEeLm4hm14EK/view?usp=sharing"> <b>Unit-1</b> (Laplace transform)</a></li>
-                        <li> <a href="https://drive.google.com/file/d/1FhL4nw0NUOTSEPuXoHN_MS89TQJ5HMIj/view?usp=sharing"> <b>Unit-2</b> (Fourier series)</a></li>
-                        <li> <a href="https://drive.google.com/file/d/1i-iHRs81QvHtpOFA5lFVcG3QLxXfwTtl/view?usp=sharing"> <b>Unit-2 (<u>Comprehensive-notes</u>)</b> (Fourier series)</a></li>
-                        <li> <a href="https://drive.google.com/file/d/1gy423BRHHeaX79BGT_pGRc8zdKSwWqS5/view?usp=sharing"> <b>Unit-3</b> (Fourier transform)</a></li>
-                    </ul>
-                    <br>
-                    <hr>
-                    <br>
-                    <b>Assignment_time:</b> <a href="https://drive.google.com/file/d/1Y6Zo5gQgKWKDj2PL1pC6qR4k9Skrv9RY/view"> 👉🏻 Assignment_01 👈🏻</a>
-                    <br>
-                    <b>Print:</b> <a href="https://dropover.cloud/pxe1c45a"> Print</a>
-                    <hr>
-                    <br>
-                    <strong>Odd semester calendar:</strong>
-                    <ul class="list-disc list-inside mt-2 text-gray-600">
-                        <p> Calendar: <a href="https://drive.google.com/file/d/1WAx8tZMzWI7hE2wfYjM9fqyrCmuJM6qT/view?usp=sharing"> 👉🏻 Click here 👈🏻 </a> || TNT Schedule: <a href="https://drive.google.com/file/d/1xqW4Hm4NUvEvL3hOxP6ziqgnLjy12eUZ/view?usp=sharing"> 👉🏻 Click here 👈🏻 </a> </p>
-                    </ul>
-                  </p>
+        <section id="education">
+            <h2 class="section-title">Education</h2>
+            
+            <div class="timeline-item">
+                <div class="timeline-date">2019 — 2024</div>
+                <div class="timeline-content">
+                    <h3>Ph.D. in Mathematics</h3>
+                    <h4>Central University of Rajasthan</h4>
+                    <p><strong>Thesis:</strong> A Study of Instability in Newtonian Fluid.</p>
+                    <p>Focus: Linear and Non-linear instability, Chaos theory.</p>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-date">2013 — 2018</div>
+                <div class="timeline-content">
+                    <h3>Integrated M.Sc. in Mathematics</h3>
+                    <h4>Central University of Rajasthan</h4>
+                    <p>Majored in heat and mass transfer of free convection and numerical analysis.</p>
                 </div>
             </div>
         </section>
 
-        <!-- Research Section -->
-        <section id="research" class="content-section">
-            <div class="max-w-4xl mx-auto">
-                <div class="card">
-                    <h2><span class="material-symbols-outlined">science</span>Research</h2>
-                    <p class="text-gray-700 leading-relaxed">
-                        Research interests, current projects, and publications:
-                        <hr>
-                        <br><br>
-                        <strong>Research interest:</strong>
-                        <ul class="list-disc list-inside mt-2 text-gray-600">
-                            <li>Linear Instability</li>
-                            <li>non-linear Instability</li>
-                            <li>Chaos</li>
-                            <li>Computational fluid dynamics</li>
-                            <li>PINNs and Numerical simulations in Fluid mechanics. </li>
-                        </ul>
-                    <br>
-                    <br>
-                        <strong>Research publications:</strong>
-                        <ul class="list-disc list-inside mt-2 text-gray-600">
-                         <p>
-                             <li>For complete list of publications, please refer the link : <mark><a href="https://scholar.google.com/citations?user=2P_eyfoAAAAJ&hl=en">Google Scholar</a></mark>; <mark><a href="https://www.linkedin.com/in/dratuljakhar/"> LinkedIn</a></mark> </li>
-                         </p>
-                        </ul>
+        <section id="research">
+            <h2 class="section-title">Research Interests</h2>
+            <div class="timeline-item" style="grid-template-columns: 1fr;">
+                <div class="timeline-content">
+                    <p>My research explores the mathematical modeling of fluid systems, focusing on:</p>
+                    <div class="tags">
+                        <span class="tag">Computational Fluid Dynamics</span>
+                        <span class="tag">Linear Instability</span>
+                        <span class="tag">Non-linear Instability</span>
+                        <span class="tag">Chaos Theory</span>
+                        <span class="tag">Physics-Informed Neural Networks (PINNs)</span>
+                        <span class="tag">Numerical Simulations</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div style="margin-top: 2rem;">
+                <a href="https://scholar.google.com/citations?user=2P_eyfoAAAAJ&hl=en" target="_blank" style="color: var(--accent-color); text-decoration: none; font-weight: 600; display: flex; align-items: center; gap: 8px;">
+                    View Publications on Google Scholar <i class="fas fa-arrow-right"></i>
+                </a>
+            </div>
+        </section>
 
-                    </p>
+        <section id="teaching">
+            <h2 class="section-title">Teaching History</h2>
+            
+            <div class="timeline-item">
+                <div class="timeline-date">2024</div>
+                <div class="timeline-content">
+                    <h3>Linear Algebra and Differential Equations</h3>
+                    <h4>B.Tech Course</h4>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-date">2024</div>
+                <div class="timeline-content">
+                    <h3>Single and Multivariate Calculus</h3>
+                    <h4>B.Tech Course</h4>
                 </div>
             </div>
         </section>
 
-        <!-- Education Section -->
-        <section id="education" class="content-section">
-            <div class="max-w-4xl mx-auto">
-                <div class="card">
-                    <h2><span class="material-symbols-outlined">history_edu</span>Education</h2>
-                    <p class="text-gray-700 leading-relaxed">
-                        Academic qualifications and background:
-                        <hr>
-                        <br><br>
-                         <ul class="list-disc list-inside mt-2 text-gray-600">
-                            <li> Ph.D. in Mathematics, Central University of Rajasthan (<u>2019-2024</u>)<br>  <b>Title:</b> <a href="https://shodhganga.inflibnet.ac.in/handle/10603/572924"><u> A Study of Instability in Newtonian Fluid </u></a>
-                        </li><br><br>
-                            <li>Integrated M.Sc. in Mathematics, Central University of Rajasthan (<u>2013-2018</u>)
-                            <br> <b>Major Thesis Title:</b> Study of heat and mass transfer of free convection through vertical annuli in presence of heat source, chemical reaction and Newtonian heating. (<u>January - June, 2018</u>) <br>
-                            <b>Minor Thesis Title:</b> Study of heat transfer from vertical concentric annuli by hankel transfom. (<u>January - June, 2016</u>) </li>
-                        </ul>
-                    </p>
-                </div>
-            </div>
-        </section>
     </main>
 
-    <!-- Bottom Navigation Bar -->
-    <nav class="bottom-nav">
-        <div class="nav-item active" data-target="about">
-            <div class="icon-container">
-                <span class="material-symbols-outlined">person</span>
-            </div>
-            <span class="nav-label">About</span>
-        </div>
-        <div class="nav-item" data-target="teaching">
-            <div class="icon-container">
-                <span class="material-symbols-outlined">school</span>
-            </div>
-            <span class="nav-label">Teaching</span>
-        </div>
-        <div class="nav-item" data-target="research">
-            <div class="icon-container">
-                <span class="material-symbols-outlined">science</span>
-            </div>
-            <span class="nav-label">Research</span>
-        </div>
-        <div class="nav-item" data-target="education">
-            <div class="icon-container">
-                <span class="material-symbols-outlined">history_edu</span>
-            </div>
-            <span class="nav-label">Education</span>
-        </div>
-    </nav>
-
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const navItems = document.querySelectorAll('.nav-item');
-            const contentSections = document.querySelectorAll('.content-section');
+        // Theme Toggling Logic
+        const htmlEl = document.documentElement;
+        const themeIcon = document.getElementById('theme-icon');
+        const themeText = document.getElementById('theme-text');
 
-            // Function to switch tabs
-            function switchTab(targetId) {
-                // Update content sections
-                contentSections.forEach(section => {
-                    section.classList.remove('active');
-                    if (section.id === targetId) {
-                        section.classList.add('active');
-                    }
-                });
-
-                // Update navigation items
-                navItems.forEach(item => {
-                    item.classList.remove('active');
-                    if (item.dataset.target === targetId) {
-                        item.classList.add('active');
-                    }
-                });
-                
-                // Scroll to top on tab change
-                window.scrollTo(0, 0);
+        function toggleTheme() {
+            const currentTheme = htmlEl.getAttribute('data-theme');
+            const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+            
+            htmlEl.setAttribute('data-theme', newTheme);
+            
+            if (newTheme === 'dark') {
+                themeIcon.classList.remove('fa-moon');
+                themeIcon.classList.add('fa-sun');
+                themeText.textContent = "Light Mode";
+            } else {
+                themeIcon.classList.remove('fa-sun');
+                themeIcon.classList.add('fa-moon');
+                themeText.textContent = "Dark Mode";
             }
+        }
 
-            // Add click listeners to nav items
-            navItems.forEach(item => {
-                item.addEventListener('click', () => {
-                    const targetId = item.dataset.target;
-                    switchTab(targetId);
-                });
+        // Active Link Highlighting
+        const sections = document.querySelectorAll('section');
+        const navLinks = document.querySelectorAll('.nav-link');
+
+        window.addEventListener('scroll', () => {
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (scrollY >= (sectionTop - 150)) {
+                    current = section.getAttribute('id');
+                }
             });
 
-            // Set the initial active tab
-            switchTab('about');
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href').includes(current)) {
+                    link.classList.add('active');
+                }
+            });
         });
     </script>
-   
-
 </body>
 </html>
