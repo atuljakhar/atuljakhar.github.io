@@ -3,6 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#ffffff">
+    <link rel="manifest" href="manifest.json">
+    <link rel="apple-touch-icon" href="https://pbs.twimg.com/profile_images/2031723514169081856/iMswKUOF_400x400.jpg">
+    
     <title>Dr. Atul Jakhar</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -33,6 +37,10 @@
             padding: 0;
             box-sizing: border-box;
             transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+        }
+
+        html {
+            scroll-behavior: smooth; /* Enables smooth scrolling for nav links */
         }
 
         body {
@@ -251,6 +259,40 @@
             color: var(--accent-color);
         }
 
+        /* Back to Top Button */
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background-color: var(--accent-color);
+            color: #ffffff;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            display: none; /* Hidden by default */
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            z-index: 100;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.3s ease, transform 0.3s ease, background-color 0.3s ease;
+        }
+
+        .back-to-top.show {
+            display: flex;
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .back-to-top:hover {
+            background-color: #1d4ed8; /* Darker blue on hover */
+            transform: translateY(-5px);
+        }
+
         /* Mobile Responsive */
         @media (max-width: 968px) {
             body {
@@ -280,6 +322,13 @@
                 color: var(--accent-color);
                 font-size: 0.85rem;
                 margin-bottom: 0.25rem;
+            }
+
+            .back-to-top {
+                bottom: 20px;
+                right: 20px;
+                width: 45px;
+                height: 45px;
             }
         }
     </style>
@@ -429,6 +478,10 @@
 
     </main>
 
+    <button id="backToTop" class="back-to-top" title="Go to top">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
     <script>
         // Theme Toggling Logic
         const htmlEl = document.documentElement;
@@ -473,6 +526,39 @@
                 }
             });
         });
+
+        // Back to Top Button Logic
+        const backToTopBtn = document.getElementById("backToTop");
+
+        window.addEventListener('scroll', () => {
+            // Show button after scrolling down 300px
+            if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
+                backToTopBtn.classList.add("show");
+            } else {
+                backToTopBtn.classList.remove("show");
+            }
+        });
+
+        backToTopBtn.addEventListener('click', () => {
+            // Scroll to top smoothly
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+
+        // PWA Service Worker Registration
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('sw.js')
+                    .then(registration => {
+                        console.log('ServiceWorker registration successful with scope: ', registration.scope);
+                    })
+                    .catch(error => {
+                        console.log('ServiceWorker registration failed: ', error);
+                    });
+            });
+        }
     </script>
 </body>
 </html>
