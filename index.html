@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="theme-color" content="#f4f4f5"> <!-- Matches the top header color for mobile browsers -->
+    <meta name="theme-color" content="#f4f4f5"> 
     <link rel="manifest" href="manifest.json">
     <link rel="apple-touch-icon" href="https://pbs.twimg.com/profile_images/2043960475143299072/DqmYVAhq_400x400.jpg">
     
@@ -336,138 +336,6 @@
             .timeline-item {
                 grid-template-columns: 140px 1fr;
                 gap: 1.5rem;
-            }
-        }
-
-        /* --- MOBILE RESPONSIVE (Phones only, < 768px) --- */
-        @media (max-width: 767px) {
-            body {
-                flex-direction: column;
-                background-color: var(--main-bg); /* Removes black gap at the top */
-            }
-
-            /* The bottom nav bar (straight edge, edge-to-edge) */
-            .sidebar {
-                width: 100%;
-                height: 75px;
-                position: fixed;
-                bottom: 0;
-                top: auto;
-                left: 0;
-                flex-direction: row;
-                padding: 0 1rem;
-                padding-bottom: env(safe-area-inset-bottom, 0px); /* Respects iOS swipe bar */
-                border-radius: 0; /* Perfectly square straight edge */
-                border: none;
-                z-index: 1000;
-                align-items: center;
-                justify-content: space-between;
-                background-color: #000000;
-            }
-
-            .profile-header {
-                margin-bottom: 0;
-                text-align: left;
-                width: auto;
-                display: flex;
-                align-items: center;
-            }
-
-            .avatar {
-                width: 42px;
-                height: 42px;
-                margin-bottom: 0;
-                border: 2px solid #333;
-                padding: 2px;
-            }
-
-            /* Hide text in sidebar for mobile */
-            .name, .role, .location, .social-links {
-                display: none;
-            }
-
-            nav {
-                flex: 1;
-                margin-left: 0.5rem;
-            }
-
-            .nav-menu {
-                margin-top: 0;
-                display: flex;
-                flex-direction: row;
-                justify-content: space-around;
-                align-items: center;
-                width: 100%;
-            }
-
-            .nav-link {
-                padding: 0;
-                margin-bottom: 0;
-                border-radius: 50%;
-                width: 44px;
-                height: 44px;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                background-color: transparent;
-            }
-
-            .nav-link i {
-                margin-right: 0;
-                font-size: 1.25rem;
-                color: #9ca3af;
-            }
-
-            /* Active state matching the screenshot */
-            .nav-link.active {
-                background-color: #1e3a8a; /* Dark Blue Circle */
-            }
-
-            .nav-link.active i {
-                color: #60a5fa; /* Light Blue Icon */
-            }
-
-            .nav-text {
-                display: none;
-            }
-
-            /* The White Main Content perfectly straight and full height */
-            .main-content {
-                margin: 0;
-                border-radius: 0; /* Straight edge at the bottom */
-                padding: 2rem 1.5rem;
-                /* Extra padding at bottom ensures content clears the nav bar */
-                padding-bottom: calc(75px + env(safe-area-inset-bottom, 0px) + 2rem); 
-                height: 100vh; /* Fills the entire screen from the top */
-                
-                /* Hide scrollbar for native app feel */
-                -ms-overflow-style: none;  
-                scrollbar-width: none;  
-            }
-
-            .main-content::-webkit-scrollbar {
-                display: none; 
-            }
-
-            .section-title {
-                font-size: 1.6rem;
-            }
-
-            .timeline-item {
-                grid-template-columns: 1fr;
-                gap: 0.5rem;
-            }
-
-            .timeline-date {
-                font-size: 0.85rem;
-                margin-bottom: 0.25rem;
-            }
-
-            .back-to-top {
-                bottom: calc(90px + env(safe-area-inset-bottom, 0px));
-                right: 20px;
-                width: 40px;
-                height: 40px;
             }
         }
     </style>
