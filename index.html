@@ -19,7 +19,7 @@
             --text-secondary-on-light: #55555a;
             
             /* UI elements */
-            --accent-color: #3b82f6; /* Bright blue to match mobile screenshot */
+            --accent-color: #3b82f6; 
             --nav-selected-bg: #1f2334;
             --sidebar-width: 280px;
         }
@@ -28,7 +28,7 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            transition: background-color 0.2s ease, color 0.2s ease;
+            transition: background-color 0.2s ease, color 0.2s ease, width 0.2s ease;
         }
 
         /* Smooth scrolling applied directly to elements that will scroll */
@@ -156,7 +156,7 @@
             text-align: center;
         }
 
-        /* The Peace Sign button (Hidden on Desktop) */
+        /* The Peace Sign button (Hidden on Desktop & Tablet) */
         .mobile-fab {
             display: none;
         }
@@ -307,8 +307,41 @@
              text-decoration: underline; 
         }
 
-        /* --- MOBILE RESPONSIVE DESIGN --- */
-        @media (max-width: 968px) {
+        /* --- TABLET RESPONSIVE DESIGN (Perfect Laptop View Fit) --- */
+        @media (min-width: 768px) and (max-width: 1024px) {
+            :root {
+                --sidebar-width: 230px; /* Slightly narrower sidebar */
+            }
+            .sidebar {
+                padding: 2rem 1rem;
+            }
+            .avatar {
+                width: 120px;
+                height: 120px;
+            }
+            .name {
+                font-size: 1.2rem;
+            }
+            .nav-link {
+                padding: 0.6rem 1rem;
+                font-size: 0.9rem;
+            }
+            .main-content {
+                padding: 1.5rem 1rem; /* Less outside margin */
+            }
+            .content-box {
+                padding: 3rem 2.5rem; /* Slightly tighter internal padding */
+            }
+            .timeline-item {
+                gap: 1.5rem; /* Bring timeline content slightly closer to dates */
+            }
+            .timeline-date {
+                min-width: 120px; /* Shorter column for the date */
+            }
+        }
+
+        /* --- MOBILE RESPONSIVE DESIGN (Phones) --- */
+        @media (max-width: 767px) {
             body { 
                 flex-direction: column; 
                 overflow: auto; /* Re-enable window scrolling */
@@ -341,7 +374,7 @@
                 top: 50%;
                 transform: translateY(-50%);
                 padding: 2rem 0.5rem;
-                background-color: #4b4c53; /* Dark gray from screenshot */
+                background-color: #4b4c53; /* Dark gray */
                 border-radius: 40px 0 0 40px; /* Pill shape on the left side */
                 box-shadow: -4px 0 20px rgba(0,0,0,0.15);
                 display: flex;
