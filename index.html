@@ -406,7 +406,7 @@
                 flex-direction: column-reverse; 
                 padding: 1.5rem 0;
                 border-radius: 40px 0 0 40px; 
-                border: 1px solid rgba(255, 255, 255, 0.1); /* Subtle white rim */
+                border: 1px solid rgba(255, 255, 255, 0.1); 
                 border-right: none;
                 z-index: 1000;
                 align-items: center;
@@ -517,7 +517,7 @@
                 color: #d1d5db;
             }
 
-            .nav-link.active { background-color: rgba(37, 99, 235, 0.9); } /* Translucent blue */
+            .nav-link.active { background-color: rgba(37, 99, 235, 0.9); } 
             .nav-link.active i { color: #ffffff; }
             .nav-text { display: none; }
 
@@ -526,7 +526,6 @@
                 border-radius: 0; 
                 padding: 2.5rem 1.5rem;
                 
-                /* Removed right padding so text scrolls beautifully UNDER the floating nav */
                 padding-right: 1.5rem; 
                 padding-bottom: 5rem;
                 
@@ -542,11 +541,9 @@
             .timeline-item:hover { background-color: transparent; border-color: transparent; box-shadow: none; transform: none; }
             .timeline-date { font-size: 0.85rem; margin-bottom: 0.25rem; }
 
-            .back-to-top {
-                bottom: 30px;
-                right: 90px; 
-                width: 40px;
-                height: 40px;
+            /* Force hide back-to-top button on mobile */
+            .back-to-top, .back-to-top.show {
+                display: none !important;
             }
         }
     </style>
