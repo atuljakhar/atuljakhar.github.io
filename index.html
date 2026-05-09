@@ -12,29 +12,26 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            /* Full page background (visible on desktop) */
             --page-bg: #000000; 
-            
-            /* Main White Content Card Variables */
             --main-bg: #f4f4f5; 
             --text-primary: #111827;
             --text-secondary: #4b5563;
             --border-color: #e5e7eb;
             --accent-color: #2563eb;
-            
-            /* Sidebar Variables */
             --sidebar-width: 280px;
             --sidebar-bg: #000000;
             --sidebar-text: #ffffff;
             --sidebar-text-muted: #9ca3af;
             --sidebar-active-bg: #1f2937; 
+            
+            /* Animation timing */
+            --fluid-ease: cubic-bezier(0.25, 1, 0.5, 1);
         }
 
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            transition: background-color 0.3s, color 0.3s, border-color 0.3s;
         }
 
         body {
@@ -45,6 +42,34 @@
             display: flex;
             height: 100vh; 
             overflow: hidden; 
+        }
+
+        /* --- FLUID ANIMATION CLASSES --- */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s var(--fluid-ease), transform 0.8s var(--fluid-ease);
+        }
+        
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Staggered delays for child elements */
+        .delay-1 { transition-delay: 0.1s; }
+        .delay-2 { transition-delay: 0.2s; }
+        .delay-3 { transition-delay: 0.3s; }
+
+        @keyframes popIn {
+            0% { transform: scale(0.8); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        @keyframes springIcon {
+            0% { transform: scale(0.5); }
+            50% { transform: scale(1.2); }
+            100% { transform: scale(1); }
         }
 
         /* --- SIDEBAR (DESKTOP) --- */
@@ -65,6 +90,7 @@
         .profile-header {
             text-align: center;
             margin-bottom: 2.5rem;
+            animation: popIn 1s var(--fluid-ease) forwards;
         }
 
         .avatar {
@@ -75,6 +101,11 @@
             margin-bottom: 1.5rem;
             border: 2px solid #333;
             padding: 4px;
+            transition: transform 0.4s var(--fluid-ease);
+        }
+
+        .avatar:hover {
+            transform: scale(1.05) rotate(2deg);
         }
 
         .name {
@@ -112,11 +143,13 @@
         .social-icon {
             color: var(--sidebar-text-muted);
             font-size: 1.1rem;
-            transition: color 0.2s;
+            transition: all 0.3s var(--fluid-ease);
+            display: inline-block;
         }
 
         .social-icon:hover {
             color: var(--sidebar-text);
+            transform: translateY(-4px);
         }
 
         .nav-menu {
@@ -135,23 +168,32 @@
             margin-bottom: 0.5rem;
             font-weight: 600;
             font-size: 0.95rem;
-            transition: all 0.2s;
+            transition: all 0.3s var(--fluid-ease);
+            position: relative;
+            overflow: hidden;
         }
 
         .nav-link:hover {
             background-color: #111;
             color: #fff;
+            transform: translateX(5px);
         }
 
         .nav-link.active {
             background-color: var(--sidebar-active-bg);
             color: var(--accent-color);
+            transform: translateX(5px);
         }
 
         .nav-link i {
             width: 24px;
             font-size: 1.1rem;
             margin-right: 12px;
+            transition: transform 0.4s var(--fluid-ease);
+        }
+
+        .nav-link.active i {
+            animation: springIcon 0.6s var(--fluid-ease);
         }
 
         /* --- MAIN CONTENT (SCROLLABLE AREA) --- */
@@ -170,9 +212,9 @@
             height: calc(100vh - 3rem); 
             overflow-y: auto; 
             scroll-behavior: smooth;
+            box-shadow: inset 0 0 20px rgba(0,0,0,0.02);
         }
 
-        /* Custom Scrollbar for Desktop */
         .main-content::-webkit-scrollbar {
             width: 8px;
         }
@@ -207,10 +249,15 @@
             position: absolute;
             bottom: -10px;
             left: 0;
-            width: 35px;
+            width: 0;
             height: 4px;
             background-color: var(--accent-color);
             border-radius: 2px;
+            transition: width 0.8s var(--fluid-ease);
+        }
+        
+        .section-title.active::after {
+            width: 35px; /* Animates the underline in */
         }
 
         .about-text {
@@ -226,6 +273,17 @@
             gap: 2rem;
             margin-bottom: 2.5rem;
             align-items: flex-start;
+            padding: 1.5rem;
+            border-radius: 16px;
+            transition: all 0.4s var(--fluid-ease);
+            border: 1px solid transparent;
+        }
+
+        .timeline-item:hover {
+            background-color: #ffffff;
+            border-color: var(--border-color);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
         }
 
         .timeline-date {
@@ -269,6 +327,15 @@
             border-radius: 6px;
             font-size: 0.85rem;
             font-weight: 500;
+            transition: all 0.3s var(--fluid-ease);
+            cursor: default;
+        }
+
+        .tag:hover {
+            background-color: var(--accent-color);
+            color: #ffffff;
+            transform: translateY(-3px);
+            box-shadow: 0 4px 10px rgba(37, 99, 235, 0.3);
         }
 
         .back-to-top {
@@ -289,19 +356,19 @@
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
             z-index: 100;
             opacity: 0;
-            transform: translateY(20px);
-            transition: opacity 0.3s ease, transform 0.3s ease, background-color 0.3s ease;
+            transform: translateY(20px) scale(0.8);
+            transition: all 0.4s var(--fluid-ease);
         }
 
         .back-to-top.show {
             display: flex;
             opacity: 1;
-            transform: translateY(0);
+            transform: translateY(0) scale(1);
         }
 
         .back-to-top:hover {
             background-color: #1d4ed8;
-            transform: translateY(-5px);
+            transform: translateY(-5px) scale(1.05);
         }
 
         /* --- TABLET RESPONSIVE --- */
@@ -309,72 +376,59 @@
             :root {
                 --sidebar-width: 230px; 
             }
-
-            .sidebar {
-                padding: 2rem 1.2rem; 
-            }
-
-            .avatar {
-                width: 110px; 
-                height: 110px;
-            }
-
-            .name {
-                font-size: 1.25rem;
-            }
-
+            .sidebar { padding: 2rem 1.2rem; }
+            .avatar { width: 110px; height: 110px; }
+            .name { font-size: 1.25rem; }
             .main-content {
                 margin-left: calc(var(--sidebar-width) + 1rem);
-                margin-top: 1rem;
-                margin-bottom: 1rem;
-                margin-right: 1rem;
-                padding: 3rem 2.5rem;
-                height: calc(100vh - 2rem);
-                border-radius: 30px;
+                margin-top: 1rem; margin-bottom: 1rem; margin-right: 1rem;
+                padding: 3rem 2.5rem; height: calc(100vh - 2rem); border-radius: 30px;
             }
-
-            .timeline-item {
-                grid-template-columns: 140px 1fr;
-                gap: 1.5rem;
-            }
+            .timeline-item { grid-template-columns: 140px 1fr; gap: 1.5rem; padding: 1rem; }
         }
 
-        /* --- MOBILE RESPONSIVE (Phones only, < 768px) --- */
+        /* --- MOBILE RESPONSIVE --- */
         @media (max-width: 767px) {
             body {
                 flex-direction: column;
                 background-color: var(--main-bg); 
             }
 
-            /* Right-sided vertical curved nav bar */
             .sidebar {
                 width: 75px;
-                height: 50vh; /* End up to half of the screen */
+                height: 50vh; 
                 position: fixed;
-                right: 0; /* Align to right vertical edge */
+                right: 0; 
                 bottom: 20px; 
                 top: auto;
                 left: auto;
-                flex-direction: column-reverse; /* Puts photo at the bottom, nav above it */
+                flex-direction: column-reverse; 
                 padding: 1.5rem 0;
-                border-radius: 40px 0 0 40px; /* Curved towards the edge */
+                border-radius: 40px 0 0 40px; 
                 border: 1px solid #222;
                 border-right: none;
                 z-index: 1000;
                 align-items: center;
                 justify-content: space-between;
                 background-color: #000000;
-                box-shadow: -4px 0 20px rgba(0,0,0,0.15);
+                box-shadow: -4px 0 25px rgba(0,0,0,0.3);
+                transform: translateX(100%);
+                animation: slideInRight 0.8s var(--fluid-ease) 0.5s forwards;
+            }
+
+            @keyframes slideInRight {
+                to { transform: translateX(0); }
             }
 
             .profile-header {
                 margin-bottom: 0;
                 text-align: center;
                 width: 100%;
-                position: relative; /* For the popup positioning */
+                position: relative; 
                 display: flex;
                 justify-content: center;
                 align-items: center;
+                animation: none; /* Reset desktop animation */
             }
 
             .avatar {
@@ -385,32 +439,34 @@
                 padding: 2px;
             }
 
-            /* Victory Emoji Popup to the left side */
             .profile-header::before {
                 content: "✌️";
                 position: absolute;
-                right: 60px; /* Positions to the left of the avatar */
+                right: 60px; 
                 top: 50%;
-                transform: translateY(-50%);
+                transform: translateY(-50%) scale(0);
                 background-color: #1e3a8a;
                 color: white;
                 padding: 8px 12px;
-                border-radius: 20px 20px 0 20px; /* Creates a speech bubble pointing right */
+                border-radius: 20px 20px 0 20px; 
                 font-size: 1.2rem;
                 box-shadow: 0 4px 10px rgba(0,0,0,0.3);
                 z-index: 1010;
-                animation: float 2.5s ease-in-out infinite;
+                animation: popBubble 0.6s var(--fluid-ease) 1.2s forwards, float 2.5s ease-in-out 1.8s infinite;
+            }
+
+            @keyframes popBubble {
+                0% { transform: translateY(-50%) scale(0); }
+                70% { transform: translateY(-50%) scale(1.1); }
+                100% { transform: translateY(-50%) scale(1); }
             }
 
             @keyframes float {
-                0%, 100% { transform: translateY(-50%) translateX(0); }
-                50% { transform: translateY(-50%) translateX(-4px); }
+                0%, 100% { transform: translateY(-50%) translateX(0) scale(1); }
+                50% { transform: translateY(-50%) translateX(-4px) scale(1); }
             }
 
-            /* Hide text in sidebar for mobile */
-            .name, .role, .location, .social-links {
-                display: none;
-            }
+            .name, .role, .location, .social-links { display: none; }
 
             nav {
                 flex: 1;
@@ -443,55 +499,40 @@
                 background-color: transparent;
             }
 
+            .nav-link:hover, .nav-link.active {
+                transform: translateX(0) scale(1.1); /* Overrides desktop transform */
+            }
+
             .nav-link i {
                 margin-right: 0;
                 font-size: 1.25rem;
                 color: #9ca3af;
             }
 
-            .nav-link.active {
-                background-color: #1e3a8a; 
-            }
-
-            .nav-link.active i {
-                color: #60a5fa; 
-            }
-
-            .nav-text {
-                display: none;
-            }
+            .nav-link.active { background-color: #1e3a8a; }
+            .nav-link.active i { color: #60a5fa; }
+            .nav-text { display: none; }
 
             .main-content {
                 margin: 0;
                 border-radius: 0; 
                 padding: 2rem 1.5rem;
-                padding-right: 90px; /* Keeps text from hiding under the vertical nav bar */
+                padding-right: 90px; 
                 height: 100vh; 
                 -ms-overflow-style: none;  
                 scrollbar-width: none;  
+                box-shadow: none;
             }
 
-            .main-content::-webkit-scrollbar {
-                display: none; 
-            }
-
-            .section-title {
-                font-size: 1.6rem;
-            }
-
-            .timeline-item {
-                grid-template-columns: 1fr;
-                gap: 0.5rem;
-            }
-
-            .timeline-date {
-                font-size: 0.85rem;
-                margin-bottom: 0.25rem;
-            }
+            .main-content::-webkit-scrollbar { display: none; }
+            .section-title { font-size: 1.6rem; }
+            .timeline-item { grid-template-columns: 1fr; gap: 0.5rem; padding: 1rem 0; }
+            .timeline-item:hover { background-color: transparent; border-color: transparent; box-shadow: none; transform: none; }
+            .timeline-date { font-size: 0.85rem; margin-bottom: 0.25rem; }
 
             .back-to-top {
                 bottom: 30px;
-                right: 90px; /* Move to the left of the sidebar */
+                right: 90px; 
                 width: 40px;
                 height: 40px;
             }
@@ -532,8 +573,8 @@
     <main class="main-content">
         
         <section id="about">
-            <h2 class="section-title">About Me</h2>
-            <div class="about-text">
+            <h2 class="section-title reveal">About Me</h2>
+            <div class="about-text reveal delay-1">
                 <p>Hello! I'm <strong>Dr. Atul Jakhar</strong>, currently working as a Postdoctoral Fellow at the <strong>Indian Institute of Technology (IIT) Madras</strong>. My work sits at the intersection of classical mechanics and modern technology, specifically exploring <strong>Computational Fluid Mechanics (CFD)</strong> and the application of Artificial Intelligence in fluid dynamics.</p>
                 <br>
                 <p>My research investigates the dynamic behavior of fluids through numerical methods and simulations, with a particular focus on instability and chaos. Beyond academia, I am a passionate athlete and motivational speaker, believing that the discipline required in sports translates directly to scientific rigor.</p>
@@ -541,9 +582,9 @@
         </section>
 
         <section id="experience">
-            <h2 class="section-title">Academic Positions</h2>
+            <h2 class="section-title reveal">Academic Positions</h2>
             
-            <div class="timeline-item">
+            <div class="timeline-item reveal delay-1">
                 <div class="timeline-date"> Dec. 2025 — Present</div>
                 <div class="timeline-content">
                     <h3>Postdoctoral Fellow</h3>
@@ -552,7 +593,7 @@
                 </div>
             </div>
 
-            <div class="timeline-item">
+            <div class="timeline-item reveal delay-2">
                 <div class="timeline-date">Sept. 2024 — Oct. 2025</div>
                 <div class="timeline-content">
                     <h3>Assistant Professor</h3>
@@ -563,9 +604,9 @@
         </section>
 
         <section id="education">
-            <h2 class="section-title">Education</h2>
+            <h2 class="section-title reveal">Education</h2>
             
-            <div class="timeline-item">
+            <div class="timeline-item reveal delay-1">
                 <div class="timeline-date">2019 — 2024</div>
                 <div class="timeline-content">
                     <h3>Ph.D. in Mathematics</h3>
@@ -575,7 +616,7 @@
                 </div>
             </div>
 
-            <div class="timeline-item">
+            <div class="timeline-item reveal delay-2">
                 <div class="timeline-date">2013 — 2018</div>
                 <div class="timeline-content">
                     <h3>Integrated M.Sc. in Mathematics</h3>
@@ -586,8 +627,8 @@
         </section>
 
         <section id="research">
-            <h2 class="section-title">Research Interests</h2>
-            <div class="timeline-item" style="grid-template-columns: 1fr;">
+            <h2 class="section-title reveal">Research Interests</h2>
+            <div class="timeline-item reveal delay-1" style="grid-template-columns: 1fr;">
                 <div class="timeline-content">
                     <p>My research explores the mathematical modeling of fluid systems, focusing on:</p>
                     <div class="tags">
@@ -601,17 +642,17 @@
                 </div>
             </div>
             
-            <div style="margin-top: 2rem;">
-                <a href="https://scholar.google.com/citations?user=2P_eyfoAAAAJ&hl=en" target="_blank" style="color: var(--accent-color); text-decoration: none; font-weight: 600; display: flex; align-items: center; gap: 8px;">
+            <div class="reveal delay-2" style="margin-top: 1rem; padding-left: 1.5rem;">
+                <a href="https://scholar.google.com/citations?user=2P_eyfoAAAAJ&hl=en" target="_blank" style="color: var(--accent-color); text-decoration: none; font-weight: 600; display: inline-flex; align-items: center; gap: 8px; transition: transform 0.3s var(--fluid-ease);">
                     View Publications on Google Scholar <i class="fas fa-arrow-right"></i>
                 </a>
             </div>
         </section>
 
         <section id="teaching">
-            <h2 class="section-title">Teaching History</h2>
+            <h2 class="section-title reveal">Teaching History</h2>
             
-            <div class="timeline-item">
+            <div class="timeline-item reveal delay-1">
                 <div class="timeline-date">Aug. 2024 — Dec. 2024</div>
                 <div class="timeline-content">
                     <h3>Linear Algebra and Differential Equations</h3>
@@ -619,7 +660,7 @@
                 </div>
             </div>
 
-            <div class="timeline-item">
+            <div class="timeline-item reveal delay-2">
                 <div class="timeline-date">Feb. 2025 — June 2025</div>
                 <div class="timeline-content">
                     <h3>Single and Multivariate Calculus</h3>
@@ -627,7 +668,7 @@
                 </div>
             </div>
 
-             <div class="timeline-item">
+             <div class="timeline-item reveal delay-3">
                 <div class="timeline-date">Aug. 2025 — Oct. 2025</div>
                 <div class="timeline-content">
                     <h3> Transformations and Numerical Techniques</h3>
@@ -648,12 +689,32 @@
         const navLinks = document.querySelectorAll('.nav-link');
         const backToTopBtn = document.getElementById("backToTop");
 
+        // Intersection Observer for Scroll Animations
+        const observerOptions = {
+            root: mainContent,
+            rootMargin: '0px',
+            threshold: 0.15
+        };
+
+        const revealObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.reveal').forEach(element => {
+            revealObserver.observe(element);
+        });
+
+        // Scroll Logic for Active Nav States & Back to Top
         mainContent.addEventListener('scroll', () => {
             let current = '';
             
             sections.forEach(section => {
                 const sectionTop = section.offsetTop;
-                if (mainContent.scrollTop >= (sectionTop - 150)) {
+                if (mainContent.scrollTop >= (sectionTop - 180)) {
                     current = section.getAttribute('id');
                 }
             });
@@ -679,6 +740,7 @@
             });
         });
 
+        // Service Worker
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', () => {
                 navigator.serviceWorker.register('sw.js')
