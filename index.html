@@ -3,556 +3,443 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="theme-color" content="#f4f4f5"> 
-    <link rel="manifest" href="manifest.json">
-    <link rel="apple-touch-icon" href="https://pbs.twimg.com/profile_images/2043960475143299072/DqmYVAhq_400x400.jpg">
-    
     <title>Dr. Atul Jakhar</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --page-bg: #000000; 
-            --main-bg: #f4f4f5; 
-            --text-primary: #111827;
-            --text-secondary: #4b5563;
-            --border-color: #e5e7eb;
-            --accent-color: #2563eb;
-            --sidebar-width: 280px;
-            --sidebar-bg: #000000;
-            --sidebar-text: #ffffff;
-            --sidebar-text-muted: #9ca3af;
-            --sidebar-active-bg: #1f2937; 
+            /* Sidebar and Body colors (Dark) */
+            --bg-body: #000000;
+            --text-primary-on-black: #ffffff;
+            --text-secondary-on-black: #aaaaaa;
             
-            /* Animation timing */
-            --fluid-ease: cubic-bezier(0.25, 1, 0.5, 1);
+            /* Main Content Container and Text colors (Light) */
+            --bg-content-box: #f5f5f7;
+            --text-primary-on-light: #1d1d1f;
+            --text-secondary-on-light: #55555a;
+            
+            /* UI elements */
+            --accent-color: #3b82f6; /* Bright blue to match mobile screenshot */
+            --nav-selected-bg: #1f2334;
+            --sidebar-width: 280px;
         }
 
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            transition: background-color 0.2s ease, color 0.2s ease;
+        }
+
+        /* Smooth scrolling applied directly to elements that will scroll */
+        html {
+            scroll-behavior: smooth;
         }
 
         body {
             font-family: 'Inter', sans-serif;
-            background-color: var(--page-bg);
-            color: var(--text-primary);
+            background-color: var(--bg-body);
+            color: var(--text-primary-on-black);
             line-height: 1.6;
             display: flex;
-            height: 100vh; /* Fallback */
-            height: 100dvh; /* Accounts for mobile/tablet browser UI */
+            min-height: 100vh;
+            /* Prevent the entire page from scrolling on desktop */
             overflow: hidden; 
-        }
-
-        /* --- FLUID ANIMATION CLASSES --- */
-        .reveal {
-            opacity: 0;
-            transform: translateY(30px);
-            transition: opacity 0.8s var(--fluid-ease), transform 0.8s var(--fluid-ease);
-        }
-        
-        .reveal.active {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        /* Staggered delays for child elements */
-        .delay-1 { transition-delay: 0.1s; }
-        .delay-2 { transition-delay: 0.2s; }
-        .delay-3 { transition-delay: 0.3s; }
-
-        @keyframes popIn {
-            0% { transform: scale(0.8); opacity: 0; }
-            100% { transform: scale(1); opacity: 1; }
-        }
-
-        @keyframes springIcon {
-            0% { transform: scale(0.5); }
-            50% { transform: scale(1.2); }
-            100% { transform: scale(1); }
         }
 
         /* --- SIDEBAR (DESKTOP) --- */
         .sidebar {
             width: var(--sidebar-width);
             height: 100vh;
-            height: 100dvh;
             position: fixed;
             left: 0;
             top: 0;
-            padding: 2.5rem 2rem;
+            padding: 3rem 1.5rem;
             display: flex;
             flex-direction: column;
-            background-color: var(--sidebar-bg);
-            color: var(--sidebar-text);
+            background-color: var(--bg-body);
             z-index: 50;
         }
 
         .profile-header {
             text-align: center;
-            margin-bottom: 2.5rem;
-            animation: popIn 1s var(--fluid-ease) forwards;
+            margin-bottom: 2rem;
+            width: 100%;
         }
 
         .avatar {
-            width: 140px;
-            height: 140px;
+            width: 150px;
+            height: 150px;
             border-radius: 50%;
             object-fit: cover;
             margin-bottom: 1.5rem;
-            border: 2px solid #333;
-            padding: 4px;
-            transition: transform 0.4s var(--fluid-ease);
-        }
-
-        .avatar:hover {
-            transform: scale(1.05) rotate(2deg);
+            border: 4px solid #1c1e29;
         }
 
         .name {
             font-size: 1.4rem;
             font-weight: 700;
-            margin-bottom: 0.5rem;
-            color: var(--sidebar-text);
-            letter-spacing: -0.5px;
+            margin-bottom: 0.3rem;
+            color: var(--text-primary-on-black);
         }
 
         .role {
-            font-size: 0.85rem;
-            color: var(--sidebar-text-muted);
-            margin-bottom: 0.25rem;
+            font-size: 0.9rem;
+            color: var(--text-secondary-on-black);
+            margin-bottom: 0.3rem;
             font-weight: 500;
         }
 
         .location {
             font-size: 0.8rem;
-            color: var(--sidebar-text-muted);
+            color: var(--text-secondary-on-black);
             display: flex;
             align-items: center;
             justify-content: center;
             gap: 0.5rem;
-            margin-top: 0.5rem;
+            margin-bottom: 1rem;
         }
 
+        /* Social Links */
         .social-links {
             display: flex;
             justify-content: center;
             gap: 1.2rem;
-            margin-top: 1.5rem;
+            margin-top: 1rem;
         }
 
         .social-icon {
-            color: var(--sidebar-text-muted);
+            color: var(--text-secondary-on-black);
             font-size: 1.1rem;
-            transition: all 0.3s var(--fluid-ease);
-            display: inline-block;
+            text-decoration: none;
         }
 
         .social-icon:hover {
-            color: var(--sidebar-text);
-            transform: translateY(-4px);
+            color: var(--accent-color);
         }
 
+        /* Navigation */
         .nav-menu {
             list-style: none;
-            margin-top: 1rem;
+            margin-top: 1.5rem;
             width: 100%;
+        }
+
+        .nav-item {
+            margin-bottom: 0.25rem;
         }
 
         .nav-link {
             display: flex;
             align-items: center;
-            padding: 0.8rem 1.2rem;
-            color: var(--sidebar-text-muted);
+            padding: 0.7rem 1.2rem;
+            color: var(--text-primary-on-black);
             text-decoration: none;
-            border-radius: 12px;
-            margin-bottom: 0.5rem;
-            font-weight: 600;
+            font-weight: 500;
             font-size: 0.95rem;
-            transition: all 0.3s var(--fluid-ease);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .nav-link:hover {
-            background-color: #111;
-            color: #fff;
-            transform: translateX(5px);
+            border-radius: 12px;
         }
 
         .nav-link.active {
-            background-color: var(--sidebar-active-bg);
+            background-color: var(--nav-selected-bg);
             color: var(--accent-color);
-            transform: translateX(5px);
+        }
+
+        .nav-link:not(.active):hover {
+            background-color: #1a1a1a;
         }
 
         .nav-link i {
             width: 24px;
-            font-size: 1.1rem;
             margin-right: 12px;
-            transition: transform 0.4s var(--fluid-ease);
+            font-size: 1rem;
+            text-align: center;
         }
 
-        .nav-link.active i {
-            animation: springIcon 0.6s var(--fluid-ease);
+        /* The Peace Sign button (Hidden on Desktop) */
+        .mobile-fab {
+            display: none;
         }
 
-        /* --- MAIN CONTENT (SCROLLABLE AREA) --- */
+        /* --- MAIN CONTENT AREA --- */
         .main-content {
-            position: relative; 
-            margin-left: calc(var(--sidebar-width) + 1.5rem);
-            margin-top: 1.5rem;
-            margin-bottom: 1.5rem;
-            margin-right: 1.5rem;
+            margin-left: var(--sidebar-width);
             flex: 1;
-            padding: 4rem 5rem;
-            max-width: 1100px;
-            background-color: var(--main-bg);
-            border-radius: 40px; 
+            /* Container exactly matches viewport height */
+            height: 100vh;
+            padding: 2rem 1rem 2rem 1.5rem;
+            display: flex;
+        }
+
+        /* The white rounded-corner container */
+        .content-box {
+            background-color: var(--bg-content-box);
+            color: var(--text-primary-on-light);
+            padding: 4rem 3.5rem;
+            border-radius: 30px;
+            width: 100%;
+            max-width: 1300px; 
+            margin: 0; 
+            position: relative;
             
-            height: calc(100vh - 3rem); 
-            height: calc(100dvh - 3rem); 
+            /* SCROLLING */
+            height: 100%; 
             overflow-y: auto; 
             scroll-behavior: smooth;
-            box-shadow: inset 0 0 20px rgba(0,0,0,0.02);
         }
 
-        .main-content::-webkit-scrollbar {
-            width: 8px;
-        }
-        .main-content::-webkit-scrollbar-track {
-            background: transparent;
-            margin: 40px 0; 
-        }
-        .main-content::-webkit-scrollbar-thumb {
-            background-color: #cbd5e1;
-            border-radius: 10px;
-        }
-        .main-content::-webkit-scrollbar-thumb:hover {
-            background-color: #9ca3af;
-        }
+        /* Custom Scrollbar for Desktop */
+        .content-box::-webkit-scrollbar { width: 8px; }
+        .content-box::-webkit-scrollbar-track { background: transparent; margin: 2rem 0; }
+        .content-box::-webkit-scrollbar-thumb { background-color: #d1d1d6; border-radius: 10px; }
+        .content-box::-webkit-scrollbar-thumb:hover { background-color: #a1a1aa; }
 
         section {
             margin-bottom: 4rem;
-            scroll-margin-top: 5rem;
         }
 
         .section-title {
             font-size: 1.8rem;
             font-weight: 700;
             margin-bottom: 2rem;
-            color: var(--text-primary);
+            color: var(--text-primary-on-light);
             position: relative;
             display: inline-block;
         }
 
+        /* Blue underline for section titles */
         .section-title::after {
             content: '';
             position: absolute;
-            bottom: -10px;
+            bottom: -8px;
             left: 0;
-            width: 0;
+            width: 40px;
             height: 4px;
             background-color: var(--accent-color);
             border-radius: 2px;
-            transition: width 0.8s var(--fluid-ease);
-        }
-        
-        .section-title.active::after {
-            width: 35px; /* Animates the underline in */
         }
 
         .about-text {
-            color: var(--text-secondary);
+            color: var(--text-secondary-on-light);
             font-size: 1.05rem;
-            line-height: 1.8;
-            margin-bottom: 1.5rem;
+            line-height: 1.7;
         }
 
+        .about-text p {
+            margin-bottom: 1.2rem;
+        }
+
+        strong {
+            font-weight: 600;
+            color: var(--text-primary-on-light);
+        }
+
+        /* Timeline Items */
         .timeline-item {
             display: grid;
-            grid-template-columns: 180px 1fr;
+            grid-template-columns: auto 1fr;
             gap: 2rem;
             margin-bottom: 2.5rem;
             align-items: flex-start;
-            padding: 1.5rem;
-            border-radius: 16px;
-            transition: all 0.4s var(--fluid-ease);
-            border: 1px solid transparent;
-        }
-
-        .timeline-item:hover {
-            background-color: #ffffff;
-            border-color: var(--border-color);
-            transform: translateY(-5px);
-            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
         }
 
         .timeline-date {
             font-size: 0.9rem;
-            color: var(--text-secondary);
-            font-weight: 500;
-            padding-top: 4px;
+            color: var(--text-secondary-on-light);
+            font-weight: 400;
+            margin-top: 3px;
+            min-width: 140px;
         }
 
         .timeline-content h3 {
-            font-size: 1.15rem;
+            font-size: 1.3rem;
             font-weight: 700;
             margin-bottom: 0.3rem;
-            color: var(--text-primary);
+            color: var(--text-primary-on-light);
         }
 
-        .timeline-content h4 {
-            font-size: 1rem;
-            color: var(--accent-color);
-            margin-bottom: 1rem;
+        .timeline-content .university {
+            font-size: 1.05rem;
             font-weight: 600;
+            color: var(--text-primary-on-light);
+            margin-bottom: 0.75rem;
+            text-decoration: none;
+            display: inline-block;
+        }
+        
+        .timeline-content .university:hover {
+            text-decoration: underline;
         }
 
         .timeline-content p {
-            color: var(--text-secondary);
-            font-size: 0.95rem;
-            line-height: 1.7;
+            color: var(--text-secondary-on-light);
+            font-size: 1rem;
+            line-height: 1.6;
         }
 
         .tags {
             display: flex;
             flex-wrap: wrap;
-            gap: 0.6rem;
+            gap: 0.7rem;
             margin-top: 1rem;
         }
 
         .tag {
-            background-color: #e5e7eb;
-            color: var(--text-primary);
+            background-color: #e5e5ea;
+            color: #1d1d1f;
             padding: 0.4rem 0.8rem;
             border-radius: 6px;
             font-size: 0.85rem;
             font-weight: 500;
-            transition: all 0.3s var(--fluid-ease);
-            cursor: default;
         }
 
-        .tag:hover {
-            background-color: var(--accent-color);
-            color: #ffffff;
-            transform: translateY(-3px);
-            box-shadow: 0 4px 10px rgba(37, 99, 235, 0.3);
+        .scholar-link {
+             color: var(--accent-color); 
+             text-decoration: none; 
+             font-weight: 600; 
+             display: flex; 
+             align-items: center; 
+             gap: 8px;
+             margin-top: 2rem;
+        }
+        
+        .scholar-link:hover { 
+             text-decoration: underline; 
         }
 
-        .back-to-top {
-            position: fixed;
-            bottom: 40px;
-            right: 40px;
-            width: 50px;
-            height: 50px;
-            background-color: var(--accent-color);
-            color: #ffffff;
-            border: none;
-            border-radius: 50%;
-            cursor: pointer;
-            display: none;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.2rem;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-            z-index: 100;
-            opacity: 0;
-            transform: translateY(20px) scale(0.8);
-            transition: all 0.4s var(--fluid-ease);
-        }
-
-        .back-to-top.show {
-            display: flex;
-            opacity: 1;
-            transform: translateY(0) scale(1);
-        }
-
-        .back-to-top:hover {
-            background-color: #1d4ed8;
-            transform: translateY(-5px) scale(1.05);
-        }
-
-        /* --- TABLET RESPONSIVE --- */
-        @media (min-width: 768px) and (max-width: 1024px) {
-            :root {
-                --sidebar-width: 230px; 
+        /* --- MOBILE RESPONSIVE DESIGN --- */
+        @media (max-width: 968px) {
+            body { 
+                flex-direction: column; 
+                overflow: auto; /* Re-enable window scrolling */
+                background-color: var(--bg-content-box); /* Whole screen uses light background */
             }
-            .sidebar { padding: 2rem 1.2rem; }
-            .avatar { width: 110px; height: 110px; }
-            .name { font-size: 1.25rem; }
+
             .main-content {
-                margin-left: calc(var(--sidebar-width) + 1.5rem);
-                margin-top: 1.5rem; 
-                margin-bottom: 1.5rem; 
-                margin-right: 1.5rem;
-                padding: 3rem 2.5rem; 
-                height: calc(100vh - 3rem); 
-                height: calc(100dvh - 3rem); /* Fixes Safari Toolbar overlap */
-                border-radius: 40px;
-            }
-            .timeline-item { grid-template-columns: 140px 1fr; gap: 1.5rem; padding: 1rem; }
-        }
-
-        /* --- MOBILE RESPONSIVE --- */
-        @media (max-width: 767px) {
-            body {
-                flex-direction: column;
-                background-color: var(--main-bg); 
+                margin-left: 0; 
+                padding: 2rem 1.5rem;
+                padding-right: 85px; /* Leave space for the floating right sidebar */
+                width: 100%;
+                height: auto;
             }
 
-            /* Floating Glassmorphism Nav Bar */
+            .content-box {
+                padding: 0; /* Remove inner padding */
+                background-color: transparent; /* Blend seamlessly with body */
+                border-radius: 0;
+                height: auto; 
+                overflow-y: visible; /* Disable inner scrolling */
+            }
+
+            /* The Floating Mobile Navigation Bar */
             .sidebar {
-                width: 75px;
-                height: 50vh; 
+                width: 75px; 
+                height: auto; 
                 position: fixed;
-                right: 0; 
-                bottom: 20px; 
-                top: auto;
+                right: 0;
                 left: auto;
-                flex-direction: column-reverse; 
-                padding: 1.5rem 0;
-                border-radius: 40px 0 0 40px; 
-                border: 1px solid rgba(255, 255, 255, 0.1); 
-                border-right: none;
-                z-index: 1000;
-                align-items: center;
-                justify-content: space-between;
-                
-                /* Glass Effect */
-                background-color: rgba(10, 10, 15, 0.75); 
-                backdrop-filter: blur(16px);
-                -webkit-backdrop-filter: blur(16px);
-                
-                /* Floating Shadow */
-                box-shadow: -8px 10px 30px rgba(0, 0, 0, 0.4);
-                
-                transform: translateX(100%);
-                animation: slideInRight 0.8s var(--fluid-ease) 0.5s forwards;
-            }
-
-            @keyframes slideInRight {
-                to { transform: translateX(0); }
-            }
-
-            .profile-header {
-                margin-bottom: 0;
-                text-align: center;
-                width: 100%;
-                position: relative; 
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                animation: none; 
-            }
-
-            .avatar {
-                width: 44px;
-                height: 44px;
-                margin-bottom: 0;
-                border: 2px solid rgba(255, 255, 255, 0.2);
-                padding: 2px;
-            }
-
-            .profile-header::before {
-                content: "✌️";
-                position: absolute;
-                right: 60px; 
                 top: 50%;
-                transform: translateY(-50%) scale(0);
-                background-color: #1e3a8a;
-                color: white;
-                padding: 8px 12px;
-                border-radius: 20px 20px 0 20px; 
-                font-size: 1.2rem;
-                box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-                z-index: 1010;
-                animation: popBubble 0.6s var(--fluid-ease) 1.2s forwards, float 2.5s ease-in-out 1.8s infinite;
-            }
-
-            @keyframes popBubble {
-                0% { transform: translateY(-50%) scale(0); }
-                70% { transform: translateY(-50%) scale(1.1); }
-                100% { transform: translateY(-50%) scale(1); }
-            }
-
-            @keyframes float {
-                0%, 100% { transform: translateY(-50%) translateX(0) scale(1); }
-                50% { transform: translateY(-50%) translateX(-4px) scale(1); }
-            }
-
-            .name, .role, .location, .social-links { display: none; }
-
-            nav {
-                flex: 1;
-                width: 100%;
-                margin: 0;
+                transform: translateY(-50%);
+                padding: 2rem 0.5rem;
+                background-color: #4b4c53; /* Dark gray from screenshot */
+                border-radius: 40px 0 0 40px; /* Pill shape on the left side */
+                box-shadow: -4px 0 20px rgba(0,0,0,0.15);
                 display: flex;
                 flex-direction: column;
-                justify-content: center;
+                align-items: center;
+                gap: 1.5rem;
+                z-index: 100;
+            }
+
+            /* Adjust flex order so avatar is at the bottom of the nav */
+            .profile-header {
+                order: 2;
+                margin-bottom: 0;
+            }
+            
+            nav {
+                order: 1;
+                width: 100%;
+            }
+
+            /* Hide desktop specific text in profile block */
+            .name, .role, .location, .social-links {
+                display: none;
+            }
+
+            /* Mobile Avatar styling */
+            .avatar {
+                width: 40px;
+                height: 40px;
+                margin-bottom: 0;
+                border: 2px solid #8e8e93;
             }
 
             .nav-menu {
                 margin-top: 0;
                 display: flex;
                 flex-direction: column;
-                justify-content: space-evenly;
                 align-items: center;
-                width: 100%;
-                height: 100%;
+                gap: 0.8rem;
             }
+
+            .nav-item { margin-bottom: 0; width: 100%; display: flex; justify-content: center;}
 
             .nav-link {
                 padding: 0;
-                margin-bottom: 0;
+                width: 45px;
+                height: 45px;
                 border-radius: 50%;
-                width: 44px;
-                height: 44px;
-                display: flex;
-                align-items: center;
                 justify-content: center;
                 background-color: transparent;
+                color: #e5e5ea;
             }
 
-            .nav-link:hover, .nav-link.active {
-                transform: translateX(0) scale(1.1); 
+            .nav-text {
+                display: none; /* Hide text, show only icons */
             }
 
             .nav-link i {
                 margin-right: 0;
-                font-size: 1.25rem;
-                color: #d1d5db;
+                font-size: 1.2rem;
             }
 
-            .nav-link.active { background-color: rgba(37, 99, 235, 0.9); } 
-            .nav-link.active i { color: #ffffff; }
-            .nav-text { display: none; }
-
-            .main-content {
-                margin: 0;
-                border-radius: 0; 
-                padding: 2.5rem 1.5rem;
-                
-                padding-right: 1.5rem; 
-                padding-bottom: 5rem;
-                
-                height: 100vh; 
-                height: 100dvh;
-                -ms-overflow-style: none;  
-                scrollbar-width: none;  
-                box-shadow: none;
+            /* Active Icon styling matching screenshot */
+            .nav-link.active {
+                background-color: #3b82f6; /* Bright blue */
+                color: #ffffff;
             }
 
-            .main-content::-webkit-scrollbar { display: none; }
-            .section-title { font-size: 1.6rem; }
-            .timeline-item { grid-template-columns: 1fr; gap: 0.5rem; padding: 1rem 0; }
-            .timeline-item:hover { background-color: transparent; border-color: transparent; box-shadow: none; transform: none; }
-            .timeline-date { font-size: 0.85rem; margin-bottom: 0.25rem; }
+            .nav-link:not(.active):hover {
+                background-color: rgba(255,255,255,0.1);
+            }
 
-            /* Force hide back-to-top button on mobile */
-            .back-to-top, .back-to-top.show {
-                display: none !important;
+            /* Mobile Peace Sign FAB */
+            .mobile-fab {
+                display: flex;
+                position: absolute;
+                bottom: 1.5rem; /* Align with the avatar */
+                left: -22px; /* Pop out to the left of the sidebar */
+                width: 44px;
+                height: 44px;
+                background-color: #1e3a8a; /* Deep blue background */
+                border-radius: 50%;
+                align-items: center;
+                justify-content: center;
+                font-size: 1.2rem;
+                box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+                z-index: 101;
+            }
+
+            /* Readjust Content padding */
+            .timeline-item {
+                grid-template-columns: 1fr; 
+                gap: 0.5rem;
+            }
+            .timeline-date {
+                font-size: 0.85rem; 
+                margin-bottom: 0.2rem;
+                min-width: auto;
             }
         }
     </style>
@@ -560,11 +447,14 @@
 <body oncontextmenu="return false;">
 
     <aside class="sidebar">
+        <!-- Peace sign button for mobile -->
+        <div class="mobile-fab">✌️</div>
+
         <div class="profile-header">
-            <a href="#about"><img src="https://pbs.twimg.com/profile_images/2043960475143299072/DqmYVAhq_400x400.jpg" alt="Dr. Atul Jakhar" class="avatar"></a>
+            <img src="https://pbs.twimg.com/profile_images/2043960475143299072/DqmYVAhq_400x400.jpg" alt="Dr. Atul Jakhar" class="avatar">
             <h1 class="name">Dr. Atul Jakhar</h1>
             <div class="role">National Postdoctoral Fellow</div>
-            <div class="role" style="font-size: 0.8rem;">IIT Madras</div>
+            <div class="role" style="font-size: 0.85rem;">IIT Madras</div>
             <div class="location">
                 <i class="fas fa-map-marker-alt"></i> Chennai, India
             </div>
@@ -579,197 +469,158 @@
 
         <nav>
             <ul class="nav-menu">
-                <li><a href="#about" class="nav-link active"><i class="fas fa-user"></i> <span class="nav-text">About</span></a></li>
-                <li><a href="#experience" class="nav-link"><i class="fas fa-briefcase"></i> <span class="nav-text">Experience</span></a></li>
-                <li><a href="#education" class="nav-link"><i class="fas fa-user-graduate"></i> <span class="nav-text">Education</span></a></li>
-                <li><a href="#research" class="nav-link"><i class="fas fa-flask"></i> <span class="nav-text">Research</span></a></li>
-                <li><a href="#teaching" class="nav-link"><i class="fas fa-chalkboard-teacher"></i> <span class="nav-text">Teaching</span></a></li>
+                <li class="nav-item"><a href="#about" class="nav-link active"><i class="fas fa-user"></i> <span class="nav-text">About</span></a></li>
+                <li class="nav-item"><a href="#experience" class="nav-link"><i class="fas fa-briefcase"></i> <span class="nav-text">Experience</span></a></li>
+                <li class="nav-item"><a href="#education" class="nav-link"><i class="fas fa-user-graduate"></i> <span class="nav-text">Education</span></a></li>
+                <li class="nav-item"><a href="#research" class="nav-link"><i class="fas fa-flask"></i> <span class="nav-text">Research</span></a></li>
+                <li class="nav-item"><a href="#teaching" class="nav-link"><i class="fas fa-chalkboard-teacher"></i> <span class="nav-text">Teaching</span></a></li>
             </ul>
         </nav>
     </aside>
 
     <main class="main-content">
-        
-        <section id="about">
-            <h2 class="section-title reveal">About Me</h2>
-            <div class="about-text reveal delay-1">
-                <p>Hello! I'm <strong>Dr. Atul Jakhar</strong>, currently working as a Postdoctoral Fellow at the <strong>Indian Institute of Technology (IIT) Madras</strong>. My work sits at the intersection of classical mechanics and modern technology, specifically exploring <strong>Computational Fluid Mechanics (CFD)</strong> and the application of Artificial Intelligence in fluid dynamics.</p>
-                <br>
-                <p>My research investigates the dynamic behavior of fluids through numerical methods and simulations, with a particular focus on instability and chaos. Beyond academia, I am a passionate athlete and motivational speaker, believing that the discipline required in sports translates directly to scientific rigor.</p>
-            </div>
-        </section>
-
-        <section id="experience">
-            <h2 class="section-title reveal">Academic Positions</h2>
+        <!-- The content box acts as the scrolling viewport on desktop -->
+        <div class="content-box" id="scrollable-box">
             
-            <div class="timeline-item reveal delay-1">
-                <div class="timeline-date"> Dec. 2025 — Present</div>
-                <div class="timeline-content">
-                    <h3>Postdoctoral Fellow</h3>
-                    <h4>Indian Institute of Technology (IIT) Madras</h4>
-                    <p>Conducting advanced research in fluid dynamics, focusing on AI-driven simulations and stability analysis.</p>
+            <section id="about">
+                <h2 class="section-title">About Me</h2>
+                <div class="about-text">
+                    <p>Hello! I'm <strong>Dr. Atul Jakhar</strong>, currently working as a Postdoctoral Fellow at the <strong>Indian Institute of Technology (IIT) Madras</strong>. My work sits at the intersection of classical mechanics and modern technology, specifically exploring <strong>Computational Fluid Mechanics (CFD)</strong> and the application of Artificial Intelligence in fluid dynamics.</p>
+                    <p>My research investigates the dynamic behavior of fluids through numerical methods and simulations, with a particular focus on instability and chaos. Beyond academia, I am a passionate athlete and motivational speaker, believing that the discipline required in sports translates directly to scientific rigor.</p>
                 </div>
-            </div>
+            </section>
 
-            <div class="timeline-item reveal delay-2">
-                <div class="timeline-date">Sept. 2024 — Oct. 2025</div>
-                <div class="timeline-content">
-                    <h3>Assistant Professor</h3>
-                    <h4>Dayananda Sagar University</h4>
-                    <p>Taught undergraduate courses including Linear Algebra, Differential Equations, and Multivariate Calculus. Developed curriculum for "Linear Algebra; Differential Equations."</p>
-                </div>
-            </div>
-        </section>
-
-        <section id="education">
-            <h2 class="section-title reveal">Education</h2>
-            
-            <div class="timeline-item reveal delay-1">
-                <div class="timeline-date">2019 — 2024</div>
-                <div class="timeline-content">
-                    <h3>Ph.D. in Mathematics</h3>
-                    <h4>Central University of Rajasthan</h4>
-                    <p><strong>Thesis:</strong> <a href="http://hdl.handle.net/10603/572924" style="color: var(--accent-color); text-decoration: none;"> A Study of Instability in Newtonian Fluid. </a></p>
-                    <p>Focus: Linear and Non-linear instability, Chaos theory.</p>
-                </div>
-            </div>
-
-            <div class="timeline-item reveal delay-2">
-                <div class="timeline-date">2013 — 2018</div>
-                <div class="timeline-content">
-                    <h3>Integrated M.Sc. in Mathematics</h3>
-                    <h4>Central University of Rajasthan</h4>
-                    <p>Majored in heat and mass transfer of free convection and numerical analysis.</p>
-                </div>
-            </div>
-        </section>
-
-        <section id="research">
-            <h2 class="section-title reveal">Research Interests</h2>
-            <div class="timeline-item reveal delay-1" style="grid-template-columns: 1fr;">
-                <div class="timeline-content">
-                    <p>My research explores the mathematical modeling of fluid systems, focusing on:</p>
-                    <div class="tags">
-                        <span class="tag">Computational Fluid Dynamics</span>
-                        <span class="tag">Linear Instability</span>
-                        <span class="tag">Non-linear Instability</span>
-                        <span class="tag">Chaos Theory</span>
-                        <span class="tag">Physics-Informed Neural Networks (PINNs)</span>
-                        <span class="tag">Numerical Simulations</span>
+            <section id="experience">
+                <h2 class="section-title">Academic Positions</h2>
+                
+                <div class="timeline-item">
+                    <div class="timeline-date"> Dec. 2025 — Present</div>
+                    <div class="timeline-content">
+                        <h3>Postdoctoral Fellow</h3>
+                        <a href="https://www.iitm.ac.in/" target="_blank" class="university">Indian Institute of Technology (IIT) Madras</a>
+                        <p>Conducting advanced research in fluid dynamics, focusing on AI-driven simulations and stability analysis.</p>
                     </div>
                 </div>
-            </div>
-            
-            <div class="reveal delay-2" style="margin-top: 1rem; padding-left: 1.5rem;">
-                <a href="https://scholar.google.com/citations?user=2P_eyfoAAAAJ&hl=en" target="_blank" style="color: var(--accent-color); text-decoration: none; font-weight: 600; display: inline-flex; align-items: center; gap: 8px; transition: transform 0.3s var(--fluid-ease);">
-                    View Publications on Google Scholar <i class="fas fa-arrow-right"></i>
-                </a>
-            </div>
-        </section>
 
-        <section id="teaching">
-            <h2 class="section-title reveal">Teaching History</h2>
-            
-            <div class="timeline-item reveal delay-1">
-                <div class="timeline-date">Aug. 2024 — Dec. 2024</div>
-                <div class="timeline-content">
-                    <h3>Linear Algebra and Differential Equations</h3>
-                    <h4>B.Tech Course</h4>
+                <div class="timeline-item">
+                    <div class="timeline-date">Sept. 2024 — Oct. 2025</div>
+                    <div class="timeline-content">
+                        <h3>Assistant Professor</h3>
+                        <a href="https://www.dayanandasagar.edu/" target="_blank" class="university">Dayananda Sagar University</a>
+                        <p>Taught undergraduate courses including Linear Algebra, Differential Equations, and Multivariate Calculus. Developed curriculum for "Linear Algebra; Differential Equations."</p>
+                    </div>
                 </div>
-            </div>
+            </section>
 
-            <div class="timeline-item reveal delay-2">
-                <div class="timeline-date">Feb. 2025 — June 2025</div>
-                <div class="timeline-content">
-                    <h3>Single and Multivariate Calculus</h3>
-                    <h4>B.Tech Course</h4>
+            <section id="education">
+                <h2 class="section-title">Education</h2>
+                
+                <div class="timeline-item">
+                    <div class="timeline-date">2019 — 2024</div>
+                    <div class="timeline-content">
+                        <h3>Ph.D. in Mathematics</h3>
+                        <a href="https://www.curaj.ac.in/" target="_blank" class="university">Central University of Rajasthan</a>
+                        <p><strong>Thesis:</strong> <a href="http://hdl.handle.net/10603/572924" target="_blank" style="color: var(--accent-color); text-decoration: none;">A Study of Instability in Newtonian Fluid.</a></p>
+                        <p>Focus: Linear and Non-linear instability, Chaos theory.</p>
+                    </div>
                 </div>
-            </div>
 
-             <div class="timeline-item reveal delay-3">
-                <div class="timeline-date">Aug. 2025 — Oct. 2025</div>
-                <div class="timeline-content">
-                    <h3> Transformations and Numerical Techniques</h3>
-                    <h4>B.Tech Course</h4>
+                <div class="timeline-item">
+                    <div class="timeline-date">2013 — 2018</div>
+                    <div class="timeline-content">
+                        <h3>Integrated M.Sc. in Mathematics</h3>
+                        <a href="https://www.curaj.ac.in/" target="_blank" class="university">Central University of Rajasthan</a>
+                        <p>Majored in heat and mass transfer of free convection and numerical analysis.</p>
+                    </div>
                 </div>
-            </div>
-        </section>
+            </section>
 
+            <section id="research">
+                <h2 class="section-title">Research Interests</h2>
+                <div class="timeline-item" style="grid-template-columns: 1fr;">
+                    <div class="timeline-content">
+                        <p>My research explores the mathematical modeling of fluid systems, focusing on:</p>
+                        <div class="tags">
+                            <span class="tag">Computational Fluid Dynamics</span>
+                            <span class="tag">Linear Instability</span>
+                            <span class="tag">Non-linear Instability</span>
+                            <span class="tag">Chaos Theory</span>
+                            <span class="tag">Physics-Informed Neural Networks (PINNs)</span>
+                            <span class="tag">Numerical Simulations</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div>
+                    <a href="https://scholar.google.com/citations?user=2P_eyfoAAAAJ&hl=en" target="_blank" class="scholar-link">
+                        View Publications on Google Scholar <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+            </section>
+
+            <section id="teaching">
+                <h2 class="section-title">Teaching History</h2>
+                
+                <div class="timeline-item">
+                    <div class="timeline-date">Aug. 2024 — Dec. 2024</div>
+                    <div class="timeline-content">
+                        <h3>Linear Algebra and Differential Equations</h3>
+                        <span class="university">B.Tech Course</span>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-date">Feb. 2025 — June 2025</div>
+                    <div class="timeline-content">
+                        <h3>Single and Multivariate Calculus</h3>
+                        <span class="university">B.Tech Course</span>
+                    </div>
+                </div>
+
+                 <div class="timeline-item">
+                    <div class="timeline-date">Aug. 2025 — Oct. 2025</div>
+                    <div class="timeline-content">
+                        <h3> Transformations and Numerical Techniques</h3>
+                        <span class="university">B.Tech Course</span>
+                    </div>
+                </div>
+            </section>
+        </div>
     </main>
 
-    <button id="backToTop" class="back-to-top" title="Go to top">
-        <i class="fas fa-arrow-up"></i>
-    </button>
-
     <script>
-        const mainContent = document.querySelector('.main-content');
+        const contentBox = document.getElementById('scrollable-box');
         const sections = document.querySelectorAll('section');
         const navLinks = document.querySelectorAll('.nav-link');
-        const backToTopBtn = document.getElementById("backToTop");
 
-        // Intersection Observer for Scroll Animations
-        const observerOptions = {
-            root: mainContent,
-            rootMargin: '0px',
-            threshold: 0.15
-        };
-
-        const revealObserver = new IntersectionObserver((entries, observer) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('active');
-                }
-            });
-        }, observerOptions);
-
-        document.querySelectorAll('.reveal').forEach(element => {
-            revealObserver.observe(element);
-        });
-
-        // Scroll Logic for Active Nav States & Back to Top
-        mainContent.addEventListener('scroll', () => {
-            let current = '';
+        // Check active link using getBoundingClientRect
+        function updateActiveLink() {
+            let currentId = '';
             
             sections.forEach(section => {
-                const sectionTop = section.offsetTop;
-                if (mainContent.scrollTop >= (sectionTop - 180)) {
-                    current = section.getAttribute('id');
+                const rect = section.getBoundingClientRect();
+                if (rect.top <= 250 && rect.bottom >= 150) {
+                    currentId = section.getAttribute('id');
                 }
             });
 
-            navLinks.forEach(link => {
-                link.classList.remove('active');
-                if (link.getAttribute('href').includes(current)) {
-                    link.classList.add('active');
-                }
-            });
-
-            if (mainContent.scrollTop > 300) {
-                backToTopBtn.classList.add("show");
-            } else {
-                backToTopBtn.classList.remove("show");
+            if (currentId) {
+                navLinks.forEach(link => {
+                    link.classList.remove('active');
+                    if (link.getAttribute('href') === `#${currentId}`) {
+                        link.classList.add('active');
+                    }
+                });
             }
-        });
-
-        backToTopBtn.addEventListener('click', () => {
-            mainContent.scrollTo({
-                top: 0,
-                behavior: 'smooth'
-            });
-        });
-
-        // Service Worker
-        if ('serviceWorker' in navigator) {
-            window.addEventListener('load', () => {
-                navigator.serviceWorker.register('sw.js')
-                    .then(registration => {
-                        console.log('ServiceWorker registration successful');
-                    })
-                    .catch(error => {
-                        console.log('ServiceWorker registration failed: ', error);
-                    });
-            });
         }
+
+        // Desktop scroll listener
+        contentBox.addEventListener('scroll', updateActiveLink);
+        // Mobile scroll listener
+        window.addEventListener('scroll', updateActiveLink);
+        
+        // Initialize active state
+        updateActiveLink();
     </script>
 </body>
 </html>
