@@ -394,6 +394,7 @@
                 background-color: var(--main-bg); 
             }
 
+            /* Floating Glassmorphism Nav Bar */
             .sidebar {
                 width: 75px;
                 height: 50vh; 
@@ -405,13 +406,20 @@
                 flex-direction: column-reverse; 
                 padding: 1.5rem 0;
                 border-radius: 40px 0 0 40px; 
-                border: 1px solid #222;
+                border: 1px solid rgba(255, 255, 255, 0.1); /* Subtle white rim */
                 border-right: none;
                 z-index: 1000;
                 align-items: center;
                 justify-content: space-between;
-                background-color: #000000;
-                box-shadow: -4px 0 25px rgba(0,0,0,0.3);
+                
+                /* Glass Effect */
+                background-color: rgba(10, 10, 15, 0.75); 
+                backdrop-filter: blur(16px);
+                -webkit-backdrop-filter: blur(16px);
+                
+                /* Floating Shadow */
+                box-shadow: -8px 10px 30px rgba(0, 0, 0, 0.4);
+                
                 transform: translateX(100%);
                 animation: slideInRight 0.8s var(--fluid-ease) 0.5s forwards;
             }
@@ -428,14 +436,14 @@
                 display: flex;
                 justify-content: center;
                 align-items: center;
-                animation: none; /* Reset desktop animation */
+                animation: none; 
             }
 
             .avatar {
                 width: 44px;
                 height: 44px;
                 margin-bottom: 0;
-                border: 2px solid #333;
+                border: 2px solid rgba(255, 255, 255, 0.2);
                 padding: 2px;
             }
 
@@ -500,24 +508,28 @@
             }
 
             .nav-link:hover, .nav-link.active {
-                transform: translateX(0) scale(1.1); /* Overrides desktop transform */
+                transform: translateX(0) scale(1.1); 
             }
 
             .nav-link i {
                 margin-right: 0;
                 font-size: 1.25rem;
-                color: #9ca3af;
+                color: #d1d5db;
             }
 
-            .nav-link.active { background-color: #1e3a8a; }
-            .nav-link.active i { color: #60a5fa; }
+            .nav-link.active { background-color: rgba(37, 99, 235, 0.9); } /* Translucent blue */
+            .nav-link.active i { color: #ffffff; }
             .nav-text { display: none; }
 
             .main-content {
                 margin: 0;
                 border-radius: 0; 
-                padding: 2rem 1.5rem;
-                padding-right: 90px; 
+                padding: 2.5rem 1.5rem;
+                
+                /* Removed right padding so text scrolls beautifully UNDER the floating nav */
+                padding-right: 1.5rem; 
+                padding-bottom: 5rem;
+                
                 height: 100vh; 
                 -ms-overflow-style: none;  
                 scrollbar-width: none;  
